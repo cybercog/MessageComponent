@@ -1,5 +1,7 @@
 # Message Component
 
+[![Build Status](https://travis-ci.org/SerafimArts/MessageComponent.svg?branch=master)](https://travis-ci.org/SerafimArts/MessageComponent)
+
 Multiplatform message render component.
 
 ## Example:
