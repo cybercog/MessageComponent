@@ -1,0 +1,9 @@
+Привет мир!
+<blockquote>
+    <h4>{{ title }}</h4>
+    <user>{{ user }}</user>, вы выполнили условие: <i>"{{ description }}"</i>
+    С чем и поздравляем =)
+    - фыв
+    <img>{{ image }}</img>
+</blockquote>
+asd
