@@ -95,12 +95,15 @@ class GitterAdapterTestCase extends UnitTest
     public function testListRender()
     {
         $this->assertEquals(
+            "\n" .
             '- list item' . "\n",
             $this->render('<li>list item</li>')
         );
 
         $this->assertEquals(
-            '- list item' . "\n" . '- list item' . "\n",
+            "\n" .
+            '- list item' . "\n" .
+            '- list item' . "\n",
             $this->render('<li>list item</li><li>list item</li>')
         );
 
