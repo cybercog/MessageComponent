@@ -43,6 +43,7 @@ class Node implements NodeInterface
     {
         foreach ($this->root->childNodes as $node) {
             $class = $node instanceof \DOMText ? Text::class : Node::class;
+
             yield new $class($node, $this->transformer);
         }
     }

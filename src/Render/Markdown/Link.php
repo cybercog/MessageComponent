@@ -10,10 +10,10 @@ namespace Serafim\MessageComponent\Render\Markdown;
 use Serafim\MessageComponent\Render\NodeRenderInterface;
 
 /**
- * Class Image
+ * Class Link
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class Image implements NodeRenderInterface
+class Link implements NodeRenderInterface
 {
     /**
      * @return bool
@@ -30,7 +30,7 @@ class Image implements NodeRenderInterface
      */
     public function render($dom, string $body): string
     {
-        return '![' . $this->prepareTitle($dom, $body) . '](' . $this->prepareUrl($dom, $body) . ')';
+        return '[' . $this->prepareTitle($dom, $body) . '](' . $this->prepareUrl($dom, $body) . ')';
     }
 
     /**
@@ -42,9 +42,6 @@ class Image implements NodeRenderInterface
     {
         if ($dom->hasAttribute('title')) {
             return $dom->getAttribute('title');
-
-        } else if ($dom->hasAttribute('alt')) {
-            return $dom->getAttribute('alt');
         }
 
         return $body;
@@ -57,8 +54,13 @@ class Image implements NodeRenderInterface
      */
     private function prepareUrl(\DOMElement $dom, string $body) : string
     {
-        return $dom->hasAttribute('src')
-            ? $dom->getAttribute('src')
-            : $body;
+        if ($dom->hasAttribute('href')) {
+            return $dom->getAttribute('href');
+
+        } else if ($dom->hasAttribute('src')) {
+            return $dom->getAttribute('src');
+        }
+
+        return $body;
     }
 }

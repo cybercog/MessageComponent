@@ -16,11 +16,19 @@ use Serafim\MessageComponent\Render\NodeRenderInterface;
 class Header implements NodeRenderInterface
 {
     /**
+     * @return bool
+     */
+    public function isInsulatedRender(): bool
+    {
+        return false;
+    }
+
+    /**
      * @param \DOMElement $dom
      * @param string $body
      * @return string
      */
-    public function render(\DOMElement $dom, string $body): string
+    public function render($dom, string $body): string
     {
         $level = substr($dom->tagName, 1);
 

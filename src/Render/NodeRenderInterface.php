@@ -14,9 +14,14 @@ namespace Serafim\MessageComponent\Render;
 interface NodeRenderInterface
 {
     /**
-     * @param \DOMElement $dom
+     * @return bool
+     */
+    public function isInsulatedRender(): bool;
+
+    /**
+     * @param \DOMElement|\DOMText $dom
      * @param string $body
      * @return string
      */
-    public function render(\DOMElement $dom, string $body): string;
+    public function render($dom, string $body): string;
 }

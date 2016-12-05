@@ -14,9 +14,14 @@ namespace Serafim\MessageComponent\Render;
 class Transformer
 {
     /**
-     * @var TextEscapeInterface|null
+     * @var NodeRenderInterface
      */
-    private $textEscape;
+    private $unprocessableRender;
+
+    /**
+     * @var NodeRenderInterface
+     */
+    private $textRender;
 
     /**
      * @var array|NodeRenderInterface[]
@@ -28,12 +33,7 @@ class Transformer
      */
     public function __construct()
     {
-        $this->textEscape = new class implements TextEscapeInterface {
-            public function escape(\DOMText $text, string $body): string
-            {
-                return $body;
-            }
-        };
+        $this->unprocessableRender = new UnprocessableNodeRender();
     }
 
     /**
@@ -41,7 +41,7 @@ class Transformer
      * @param NodeRenderInterface $render
      * @return $this|Transformer
      */
-    public function node($names, NodeRenderInterface $render): Transformer
+    public function nodeRender($names, NodeRenderInterface $render): Transformer
     {
         foreach ((array)$names as $name) {
             $this->transformers[mb_strtolower($name)] = $render;
@@ -51,12 +51,20 @@ class Transformer
     }
 
     /**
-     * @param TextEscapeInterface $render
+     * @return array|NodeRenderInterface[]
+     */
+    public function getNodeRenders()
+    {
+        return $this->transformers;
+    }
+
+    /**
+     * @param NodeRenderInterface $render
      * @return $this|Transformer
      */
-    public function escape(TextEscapeInterface $render): Transformer
+    public function textRender(NodeRenderInterface $render): Transformer
     {
-        $this->textEscape = $render;
+        $this->textRender = $render;
 
         return $this;
     }
@@ -69,10 +77,32 @@ class Transformer
     public function render($dom, string $text): string
     {
         if ($dom instanceof \DOMText) {
-            return $this->textEscape->escape($dom, $text);
+            return $this->textRender->render($dom, $text);
         }
 
-        return $this->getRenderer($dom)->render($dom, $text);
+        $render = $this->getRenderer($dom);
+
+        if ($render->isInsulatedRender()) {
+            return $render->render($dom, $this->innerHtml($dom));
+        }
+
+        return $render->render($dom, $text);
+    }
+
+    /**
+     * @param \DOMElement $dom
+     * @return string
+     */
+    private function innerHtml(\DOMElement $dom): string
+    {
+        $body = '';
+
+        /** @var \DOMText $childNode */
+        foreach ($dom->childNodes as $childNode) {
+            $body .= $childNode->ownerDocument->saveXML($childNode);
+        }
+
+        return $body;
     }
 
     /**
@@ -82,11 +112,6 @@ class Transformer
     private function getRenderer(\DOMElement $element): NodeRenderInterface
     {
         return $this->transformers[mb_strtolower($element->tagName)]
-            ?? new class implements NodeRenderInterface {
-                public function render(\DOMElement $dom, string $body): string
-                {
-                    return $body;
-                }
-            };
+            ?? $this->unprocessableRender;
     }
 }

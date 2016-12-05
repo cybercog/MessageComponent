@@ -7,29 +7,36 @@
  */
 namespace Serafim\MessageComponent\Render\Markdown;
 
-use Serafim\MessageComponent\Render\TextEscapeInterface;
+use Serafim\MessageComponent\Render\NodeRenderInterface;
 
 /**
- * Class TextEscape
+ * Class TextRender
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class TextEscape implements TextEscapeInterface
+class TextRender implements NodeRenderInterface
 {
+    /**
+     * @return bool
+     */
+    public function isInsulatedRender(): bool
+    {
+        return false;
+    }
+
     /**
      * @param \DOMText $text
      * @param string $body
      * @return string
      */
-    public function escape(\DOMText $text, string $body): string
+    public function render($text, string $body): string
     {
         // \s\s => \s
         $body = preg_replace('/  /u', ' ', $body);
-        // Escape code
-        $body = preg_replace('/`/u', '\\`', $body);
-        // Escape italic
-        $body = preg_replace('/(?P<char>(?:_|\*))(.+?)(?P=char)/isu', '\\\$1$2\\\$1', $body);
-        // Escape bold
-        $body = preg_replace('/\*\*(.+?)\*\*/su', '*\\*$1*\\*', $body);
+        // Escape italic, bold, inline code and stroke
+        $body = preg_replace_callback('/(?P<char>(?:_|\*|~|`)+)/isu', function($matches) {
+            $char = current(str_split($matches['char']));
+            return str_replace($char, '\\' . $char, $matches[0]);
+        }, $body);
         // Escape horizontal line
         $body = preg_replace('/\-\-(\-)+(\s*)$/u', '\-\-\-$2', $body);
         // Escape headers

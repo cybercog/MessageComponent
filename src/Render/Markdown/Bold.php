@@ -10,10 +10,10 @@ namespace Serafim\MessageComponent\Render\Markdown;
 use Serafim\MessageComponent\Render\NodeRenderInterface;
 
 /**
- * Class Quote
+ * Class Bold
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class Quote implements NodeRenderInterface
+class Bold implements NodeRenderInterface
 {
     /**
      * @return bool
@@ -24,31 +24,12 @@ class Quote implements NodeRenderInterface
     }
 
     /**
-     * @var bool
-     */
-    private $strict;
-
-    /**
-     * Quote constructor.
-     * @param bool $strict Disable double "\n" after blockquote
-     */
-    public function __construct(bool $strict = false)
-    {
-        $this->strict = $strict;
-    }
-
-    /**
      * @param \DOMElement $dom
      * @param string $body
      * @return string
      */
     public function render($dom, string $body): string
     {
-        $out = '>' . str_replace("\n", "\n>", $body);
-
-        // Normalize quote
-        $out = preg_replace('/^>\s*(\w+)/iu', '> $1', $out);
-
-        return $out . ($this->strict ? '' : "\n\n");
+        return '**' . $body . '**';
     }
 }

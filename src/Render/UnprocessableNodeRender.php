@@ -8,15 +8,26 @@
 namespace Serafim\MessageComponent\Render;
 
 /**
- * Interface TextEscapeInterface
+ * Class UnprocessableNodeRender
  * @package Serafim\MessageComponent\Render
  */
-interface TextEscapeInterface
+class UnprocessableNodeRender implements NodeRenderInterface
 {
     /**
-     * @param \DOMText $text
+     * @return bool
+     */
+    public function isInsulatedRender(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @param \DOMElement|\DOMText $text
      * @param string $body
      * @return string
      */
-    public function escape(\DOMText $text, string $body): string;
+    public function render($text, string $body): string
+    {
+        return $body;
+    }
 }

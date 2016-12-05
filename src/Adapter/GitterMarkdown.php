@@ -30,11 +30,18 @@ class GitterMarkdown implements AdapterInterface
     public function __construct()
     {
         $this->transformer = (new Transformer())
-            ->escape(new Markdown\TextEscape())
-            ->node(['blockquote', 'quote'], new Markdown\Quote())
-            ->node(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], new Markdown\Header())
-            ->node('user', new Markdown\User())
-            ->node(['img', 'image'], new Markdown\Image());
+            ->textRender(new Markdown\TextRender())
+            ->nodeRender(['i', 'italic'], new Markdown\Italic())
+            ->nodeRender(['b', 'bold', 'strong'], new Markdown\Bold())
+            ->nodeRender(['s', 'stroke', 'remove', 'delete'], new Markdown\Stroke())
+            ->nodeRender(['a', 'link', 'url'], new Markdown\Link())
+            ->nodeRender(['code', 'kbd', 'pre'], new Markdown\Code())
+            ->nodeRender(['quote', 'blockquote'], new Markdown\Quote())
+            ->nodeRender(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], new Markdown\Header())
+            ->nodeRender(['user', 'profile', 'account'], new Markdown\User())
+            ->nodeRender(['hr', 'line', 'delimiter'], new Markdown\HorizontalLine())
+            ->nodeRender(['li', 'list', 'item'], new Markdown\ListItem())
+            ->nodeRender(['img', 'image'], new Markdown\Image());
     }
 
     /**
@@ -51,7 +58,9 @@ class GitterMarkdown implements AdapterInterface
      */
     public function render(Message $message): string
     {
-        $parser = new Node($message->getBody(), $this->transformer);
+        $dom = $message->getBody();
+
+        $parser = new Node($dom, $this->transformer);
 
         return $parser->render($message->getParameters());
     }
