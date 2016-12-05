@@ -7,13 +7,15 @@
  */
 namespace Serafim\MessageComponent;
 
+use Serafim\MessageComponent\DI\AdapterNotFoundException;
+use Serafim\MessageComponent\DI\ContainerInterface;
 use Serafim\MessageComponent\Adapter\AdapterInterface;
 
 /**
  * Class Message
  * @package Serafim\MessageComponent
  */
-class Manager
+class Manager implements ContainerInterface
 {
     /**
      * @var array|AdapterInterface[]
@@ -43,28 +45,36 @@ class Manager
     }
 
     /**
-     * @param string $adapterName
+     * @param string $adapter
      * @param Message $message
      * @return string
-     * @throws \InvalidArgumentException
+     * @throws AdapterNotFoundException
      */
-    public function render(string $adapterName, Message $message)
+    public function render(string $adapter, Message $message)
     {
-        $adapter = $this->getAdapter($adapterName);
-
-        if ($adapter === null) {
-            throw new \InvalidArgumentException('Unavailable adapter ' . $adapterName);
-        }
-
-        return $adapter->render($message);
+        return $this->get($adapter)->render($message);
     }
 
     /**
-     * @param string $adapterName
+     * @param string $adapter
      * @return AdapterInterface|null
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
-    public function getAdapter(string $adapterName)
+    public function get(string $adapter)
     {
-        return $this->adapters[$adapterName] ?? null;
+        if ($this->has($adapter)) {
+            return $this->adapters[$adapter];
+        }
+
+        throw new AdapterNotFoundException('Unavailable adapter ' . $adapter);
+    }
+
+    /**
+     * @param string $adapter
+     * @return bool
+     */
+    public function has(string $adapter): bool
+    {
+        return array_key_exists($adapter, $this->adapters);
     }
 }
