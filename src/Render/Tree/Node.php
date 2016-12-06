@@ -5,15 +5,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Dom;
+namespace Serafim\MessageComponent\Render\Tree;
 
-use Serafim\MessageComponent\Render\Transformer;
+use Serafim\MessageComponent\Render\Render;
 
 /**
  * Class Node
- * @package Serafim\MessageComponent\Dom
+ * @package Serafim\MessageComponent\Render\Tree
  */
-class Node implements NodeInterface
+class Node implements DomElementInterface
 {
     /**
      * @var \DOMElement
@@ -21,45 +21,44 @@ class Node implements NodeInterface
     private $root;
 
     /**
-     * @var Transformer
+     * @var Render
      */
-    private $transformer;
+    private $renderer;
 
     /**
      * Node constructor.
      * @param \DOMElement $dom
-     * @param Transformer $transformer
+     * @param Render $renderer
      */
-    public function __construct($dom, Transformer $transformer)
+    public function __construct($dom, Render $renderer)
     {
         $this->root = $dom;
-        $this->transformer = $transformer;
+        $this->renderer = $renderer;
     }
 
     /**
-     * @return \Generator|NodeInterface[]
+     * @return \Generator|DomElementInterface[]
      */
     public function getIterator(): \Generator
     {
         foreach ($this->root->childNodes as $node) {
             $class = $node instanceof \DOMText ? Text::class : Node::class;
 
-            yield new $class($node, $this->transformer);
+            yield new $class($node, $this->renderer);
         }
     }
 
     /**
-     * @param array $parameters
      * @return string
      */
-    public function render(array $parameters = []): string
+    public function render(): string
     {
         $output = '';
 
         foreach ($this->getIterator() as $node) {
-            $output .= $node->render($parameters);
+            $output .= $node->render();
         }
 
-        return $this->transformer->render($this->root, $output);
+        return $this->renderer->renderDomElement($this->root, $output);
     }
 }

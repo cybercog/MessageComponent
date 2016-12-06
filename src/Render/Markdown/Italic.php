@@ -25,11 +25,10 @@ class Italic implements NodeRenderInterface
 
     /**
      * @param \DOMElement $dom
-     * @param string $body
      * @return string
      */
-    public function render($dom, string $body): string
+    public function render($dom): string
     {
-        return '_' . $body . '_';
+        return '_' . $dom->textContent . '_';
     }
 }

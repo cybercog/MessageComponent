@@ -25,12 +25,14 @@ class Image implements NodeRenderInterface
 
     /**
      * @param \DOMElement $dom
-     * @param string $body
      * @return string
      */
-    public function render($dom, string $body): string
+    public function render($dom): string
     {
-        return '![' . $this->prepareTitle($dom, $body) . '](' . $this->prepareUrl($dom, $body) . ')';
+        $title = $this->prepareTitle($dom, $dom->textContent);
+        $url   = $this->prepareUrl($dom, $dom->textContent);
+
+        return sprintf('![%s](%s)', $title, $url);
     }
 
     /**

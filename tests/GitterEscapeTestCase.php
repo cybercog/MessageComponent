@@ -7,8 +7,8 @@
  */
 namespace Serafim\MessageComponent\Unit;
 
-use Serafim\MessageComponent\Adapter\AdapterInterface;
 use Serafim\MessageComponent\Adapter\GitterMarkdown;
+use Serafim\MessageComponent\Manager;
 
 /**
  * Class GitterEscapeTestCase
@@ -17,13 +17,16 @@ use Serafim\MessageComponent\Adapter\GitterMarkdown;
 class GitterEscapeTestCase extends UnitTest
 {
     /**
-     * @return AdapterInterface
+     * @param string $text
+     * @return string
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
-    protected function getAdapter(): AdapterInterface
+    protected function render(string $text): string
     {
-        return new GitterMarkdown();
+        return (new Manager())
+            ->addAdapter(GitterMarkdown::class)
+            ->render('gitter', $text);
     }
-
     /**
      * @return void
      */

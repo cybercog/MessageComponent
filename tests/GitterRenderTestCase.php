@@ -7,8 +7,8 @@
  */
 namespace Serafim\MessageComponent\Unit;
 
-use Serafim\MessageComponent\Adapter\AdapterInterface;
 use Serafim\MessageComponent\Adapter\GitterMarkdown;
+use Serafim\MessageComponent\Manager;
 
 /**
  * Class GitterAdapterTestCase
@@ -17,11 +17,15 @@ use Serafim\MessageComponent\Adapter\GitterMarkdown;
 class GitterAdapterTestCase extends UnitTest
 {
     /**
-     * @return AdapterInterface
+     * @param string $text
+     * @return string
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
-    protected function getAdapter(): AdapterInterface
+    protected function render(string $text): string
     {
-        return new GitterMarkdown();
+        return (new Manager())
+            ->addAdapter(GitterMarkdown::class)
+            ->render('gitter', $text);
     }
 
     /**
@@ -187,13 +191,13 @@ class GitterAdapterTestCase extends UnitTest
         $this->assertEquals(
             '```' . "\n" .
                 '<b>This text will not be rendered as bold</b>' . "\n" .
-                '<i>This text will not be rendered as italic or <s>stroke</s></i>' . "\n" .
+                '<i>This text will not be rendered as italic or <s>stroke or <b>bold</b></s></i>' . "\n" .
             '```',
 
             $this->render(
                 '<code>' . "\n" .
                     '<b>This text will not be rendered as bold</b>' . "\n" .
-                    '<i>This text will not be rendered as italic or <s>stroke</s></i>' . "\n" .
+                    '<i>This text will not be rendered as italic or <s>stroke or <b>bold</b></s></i>' . "\n" .
                 '</code>'
             )
         );

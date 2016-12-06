@@ -25,15 +25,16 @@ class Code implements NodeRenderInterface
 
     /**
      * @param \DOMElement|\DOMText $dom
-     * @param string $body
      * @return string
      */
-    public function render($dom, string $body): string
+    public function render($dom): string
     {
+        $body = $dom->textContent;
+
         $lang = $this->getLanguage($dom);
 
         if ($lang !== '' || str_contains($body, "\n")) {
-            return $this->renderMultiline($lang, $body);
+            return $this->renderMultiline($lang, $dom->textContent);
         }
 
         return '`' . $body . '`';

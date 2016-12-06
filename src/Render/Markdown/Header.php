@@ -25,13 +25,12 @@ class Header implements NodeRenderInterface
 
     /**
      * @param \DOMElement $dom
-     * @param string $body
      * @return string
      */
-    public function render($dom, string $body): string
+    public function render($dom): string
     {
         $level = substr($dom->tagName, 1);
 
-        return str_repeat('#', (int)$level) . ' ' . $body . "\n";
+        return str_repeat('#', (int)$level) . ' ' . $dom->textContent . "\n";
     }
 }

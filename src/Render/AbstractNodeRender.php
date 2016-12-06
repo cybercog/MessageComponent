@@ -8,10 +8,10 @@
 namespace Serafim\MessageComponent\Render;
 
 /**
- * Class UnprocessableNodeRender
+ * Class AbstractNodeRender
  * @package Serafim\MessageComponent\Render
  */
-class UnprocessableNodeRender implements NodeRenderInterface
+abstract class AbstractNodeRender implements NodeRenderInterface
 {
     /**
      * @return bool
@@ -23,11 +23,10 @@ class UnprocessableNodeRender implements NodeRenderInterface
 
     /**
      * @param \DOMElement|\DOMText $text
-     * @param string $body
      * @return string
      */
-    public function render($text, string $body): string
+    public function render($text): string
     {
-        return $body;
+        return $text->textContent;
     }
 }

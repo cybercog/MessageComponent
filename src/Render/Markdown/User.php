@@ -28,7 +28,7 @@ class User implements NodeRenderInterface
      * @param string $body
      * @return string
      */
-    public function render($dom, string $body): string
+    public function render($dom): string
     {
         return '@' . $body;
     }

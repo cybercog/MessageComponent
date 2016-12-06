@@ -7,7 +7,7 @@
  */
 namespace Serafim\MessageComponent\Adapter;
 
-use Serafim\MessageComponent\Message;
+use Serafim\MessageComponent\Manager;
 
 /**
  * Interface AdapterInterface
@@ -16,10 +16,23 @@ use Serafim\MessageComponent\Message;
 interface AdapterInterface
 {
     /**
-     * @param Message $message
+     * AdapterInterface constructor.
+     * @param Manager $manager
+     * @param array $options
+     */
+    public function __construct(Manager $manager, array $options = []);
+
+    /**
+     * @param string $message
      * @return string
      */
-    public function render(Message $message): string;
+    public function render(string $message): string;
+
+    /**
+     * @param string $message
+     * @return string
+     */
+    public function parse(string $message): string;
 
     /**
      * @return string

@@ -25,11 +25,10 @@ class Bold implements NodeRenderInterface
 
     /**
      * @param \DOMElement $dom
-     * @param string $body
      * @return string
      */
-    public function render($dom, string $body): string
+    public function render($dom): string
     {
-        return '**' . $body . '**';
+        return '**' . $dom->textContent . '**';
     }
 }

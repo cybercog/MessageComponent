@@ -7,41 +7,49 @@
  */
 namespace Serafim\MessageComponent\Adapter;
 
-use Serafim\MessageComponent\Dom\Node;
-use Serafim\MessageComponent\Message;
-use Serafim\MessageComponent\Render\ {
-    Markdown, Transformer
-};
+use Serafim\MessageComponent\Manager;
+use Serafim\MessageComponent\Render\Markdown;
+use Serafim\MessageComponent\Render\Render;
+use Serafim\MessageComponent\Render\Tree\DomElementInterface;
 
 /**
  * Class GitterMarkdown
  * @package Serafim\MessageComponent\Adapter
  */
-class GitterMarkdown implements AdapterInterface
+class GitterMarkdown extends AbstractAdapter
 {
     /**
-     * @var Transformer
+     * @var array
      */
-    private $transformer;
+    protected $nodeRenderers = [
+        Markdown\TextRender::class     => DomElementInterface::TEXT_NODE_NAME,
+        Markdown\Italic::class         => ['i', 'italic'],
+        Markdown\Bold::class           => ['b', 'bold', 'strong'],
+        Markdown\Stroke::class         => ['s', 'stroke', 'remove', 'delete'],
+        Markdown\Link::class           => ['a', 'link', 'url'],
+        Markdown\Code::class           => ['code', 'pre', 'kbd'],
+        Markdown\Quote::class          => ['quote', 'blockquote'],
+        Markdown\Header::class         => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        Markdown\User::class           => ['user', 'profile', 'account'],
+        Markdown\HorizontalLine::class => ['hr', 'line', 'delimiter'],
+        Markdown\ListItem::class       => ['li', 'list', 'item'],
+        Markdown\Image::class          => ['img', 'image'],
+    ];
 
     /**
-     * GitterMarkdown constructor.
+     * @var string
      */
-    public function __construct()
+    protected $textRenderer = Markdown\TextRender::class;
+
+
+    /**
+     * @param string $message
+     * @return string
+     * @throws \LogicException
+     */
+    public function parse(string $message): string
     {
-        $this->transformer = (new Transformer())
-            ->textRender(new Markdown\TextRender())
-            ->nodeRender(['i', 'italic'], new Markdown\Italic())
-            ->nodeRender(['b', 'bold', 'strong'], new Markdown\Bold())
-            ->nodeRender(['s', 'stroke', 'remove', 'delete'], new Markdown\Stroke())
-            ->nodeRender(['a', 'link', 'url'], new Markdown\Link())
-            ->nodeRender(['code', 'kbd', 'pre'], new Markdown\Code())
-            ->nodeRender(['quote', 'blockquote'], new Markdown\Quote())
-            ->nodeRender(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], new Markdown\Header())
-            ->nodeRender(['user', 'profile', 'account'], new Markdown\User())
-            ->nodeRender(['hr', 'line', 'delimiter'], new Markdown\HorizontalLine())
-            ->nodeRender(['li', 'list', 'item'], new Markdown\ListItem())
-            ->nodeRender(['img', 'image'], new Markdown\Image());
+        return $this->parser->parse($message);
     }
 
     /**
@@ -50,18 +58,5 @@ class GitterMarkdown implements AdapterInterface
     public function getName(): string
     {
         return 'gitter';
-    }
-
-    /**
-     * @param Message $message
-     * @return string
-     */
-    public function render(Message $message): string
-    {
-        $dom = $message->getBody();
-
-        $parser = new Node($dom, $this->transformer);
-
-        return $parser->render($message->getParameters());
     }
 }

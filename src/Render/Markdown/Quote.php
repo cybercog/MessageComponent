@@ -39,12 +39,11 @@ class Quote implements NodeRenderInterface
 
     /**
      * @param \DOMElement $dom
-     * @param string $body
      * @return string
      */
-    public function render($dom, string $body): string
+    public function render($dom): string
     {
-        $out = '>' . str_replace("\n", "\n>", $body);
+        $out = '>' . str_replace("\n", "\n>", $dom->textContent);
 
         // Normalize quote
         $out = preg_replace('/^>\s*(\w+)/iu', '> $1', $out);

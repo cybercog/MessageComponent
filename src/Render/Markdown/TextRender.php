@@ -25,15 +25,16 @@ class TextRender implements NodeRenderInterface
 
     /**
      * @param \DOMText $text
-     * @param string $body
      * @return string
      */
-    public function render($text, string $body): string
+    public function render($text): string
     {
+        $body = $text->textContent;
+
         // \s\s => \s
         $body = preg_replace('/  /u', ' ', $body);
         // Escape italic, bold, inline code and stroke
-        $body = preg_replace_callback('/(?P<char>(?:_|\*|~|`)+)/isu', function($matches) {
+        $body = preg_replace_callback('/(?P<char>(?:_|\*|~|`)+)/iu', function($matches) {
             $char = current(str_split($matches['char']));
             return str_replace($char, '\\' . $char, $matches[0]);
         }, $body);

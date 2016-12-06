@@ -10,6 +10,7 @@ namespace Serafim\MessageComponent;
 use Serafim\MessageComponent\DI\AdapterNotFoundException;
 use Serafim\MessageComponent\DI\ContainerInterface;
 use Serafim\MessageComponent\Adapter\AdapterInterface;
+use Serafim\MessageComponent\Render\ParametersInjector;
 
 /**
  * Class Message
@@ -23,34 +24,27 @@ class Manager implements ContainerInterface
     private $adapters = [];
 
     /**
-     * Manager constructor.
-     * @param AdapterInterface[] ...$adapters
+     * @param string $adapter
+     * @param array $options
+     * @return Manager|$this
      */
-    public function __construct(AdapterInterface ...$adapters)
+    public function addAdapter(string $adapter, array $options = []): Manager
     {
-        foreach ($adapters as $adapter) {
-            $this->addAdapter($adapter);
-        }
-    }
+        /** @var AdapterInterface $instance */
+        $instance = new $adapter($this, $options);
 
-    /**
-     * @param AdapterInterface $adapter
-     * @return $this|Manager
-     */
-    public function addAdapter(AdapterInterface $adapter): Manager
-    {
-        $this->adapters[$adapter->getName()] = $adapter;
+        $this->adapters[$instance->getName()] = $instance;
 
         return $this;
     }
 
     /**
      * @param string $adapter
-     * @param Message $message
+     * @param string $message
      * @return string
      * @throws AdapterNotFoundException
      */
-    public function render(string $adapter, Message $message)
+    public function render(string $adapter, string $message)
     {
         return $this->get($adapter)->render($message);
     }

@@ -29,7 +29,7 @@ class ListItem implements NodeRenderInterface
      * @param string $body
      * @return string
      */
-    public function render($dom, string $body): string
+    public function render($dom): string
     {
         $isСontinuation = $this->isСontinuationOfList($dom);
         $nestingLevel   = $this->getNestedLevel($dom);
@@ -37,7 +37,7 @@ class ListItem implements NodeRenderInterface
         $prefix  = $isСontinuation ? '' : "\n";
         $prefix .= str_repeat('  ', $nestingLevel);
 
-        return $prefix . '- ' . $body . "\n";
+        return $prefix . '- ' . $dom->textContent . "\n";
     }
 
     /**

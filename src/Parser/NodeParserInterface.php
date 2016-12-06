@@ -5,22 +5,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Render;
+namespace Serafim\MessageComponent\Parser;
 
 /**
- * Interface NodeRenderInterface
- * @package Serafim\MessageComponent\Render
+ * Interface NodeParserInterface
+ * @package Serafim\MessageComponent\Parser
  */
-interface NodeRenderInterface
+interface NodeParserInterface
 {
-    /**
-     * @return bool
-     */
-    public function isInsulatedRender(): bool;
-
     /**
      * @param \DOMElement|\DOMText $dom
      * @return string
      */
-    public function render($dom): string;
+    public function parse($dom): string;
 }
