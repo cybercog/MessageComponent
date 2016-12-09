@@ -30,6 +30,7 @@ class GitterAdapterTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testItalicRender()
     {
@@ -46,6 +47,7 @@ class GitterAdapterTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testStrokeRender()
     {
@@ -54,26 +56,29 @@ class GitterAdapterTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testImageRender()
     {
         $this->assertEquals('![UrlAndTitle](UrlAndTitle)', $this->render('<img>UrlAndTitle</img>'));
-        $this->assertEquals('![Title](Url)', $this->render('<img src="Url">Title</img>'));
-        $this->assertEquals('![Title](Url)', $this->render('<img src="Url" title="Title" />'));
+        $this->assertEquals('![Title](http://laravel.su)', $this->render('<img src="http://laravel.su">Title</img>'));
+        $this->assertEquals('![Title](http://laravel.su)', $this->render('<img src="http://laravel.su" title="Title" />'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testLinkRender()
     {
         $this->assertEquals('[UrlAndTitle](UrlAndTitle)', $this->render('<url>UrlAndTitle</url>'));
-        $this->assertEquals('[Title](Url)', $this->render('<a href="Url">Title</a>'));
-        $this->assertEquals('[Title](Url)', $this->render('<a href="Url" title="Title" />'));
+        $this->assertEquals('[Title](http://laravel.su)', $this->render('<a href="http://laravel.su">Title</a>'));
+        $this->assertEquals('[Title](http://laravel.su)', $this->render('<a href="http://laravel.su" title="Title" />'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testHorizontalLineRender()
     {
@@ -82,6 +87,7 @@ class GitterAdapterTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testHeadersRender()
     {
@@ -95,6 +101,7 @@ class GitterAdapterTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testListRender()
     {
@@ -120,6 +127,7 @@ class GitterAdapterTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testNestedListRender()
     {
@@ -142,6 +150,7 @@ class GitterAdapterTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testInlineCodeRender()
     {
@@ -150,6 +159,7 @@ class GitterAdapterTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testMultilineCodeRender()
     {
@@ -185,6 +195,7 @@ class GitterAdapterTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testCodeRenderInsulation()
     {
@@ -205,6 +216,7 @@ class GitterAdapterTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testMixedStylesRender()
     {
@@ -221,6 +233,7 @@ class GitterAdapterTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testQuoteRender()
     {
@@ -229,5 +242,4 @@ class GitterAdapterTestCase extends UnitTest
         $this->assertEquals($out, $this->render('<blockquote>Blockquote</blockquote>message after'));
         $this->assertEquals($out, $this->render('<quote>Blockquote</quote>message after'));
     }
-
 }

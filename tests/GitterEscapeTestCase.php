@@ -27,8 +27,10 @@ class GitterEscapeTestCase extends UnitTest
             ->addAdapter(GitterMarkdown::class)
             ->render('gitter', $text);
     }
+
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeItalic()
     {
@@ -38,6 +40,7 @@ class GitterEscapeTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeBold()
     {
@@ -46,6 +49,7 @@ class GitterEscapeTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeStroke()
     {
@@ -55,6 +59,7 @@ class GitterEscapeTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeImage()
     {
@@ -64,6 +69,7 @@ class GitterEscapeTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeLink()
     {
@@ -72,6 +78,7 @@ class GitterEscapeTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeHorizontalLine()
     {
@@ -81,6 +88,7 @@ class GitterEscapeTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeHeaders()
     {
@@ -96,6 +104,7 @@ class GitterEscapeTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeLine()
     {
@@ -106,6 +115,7 @@ class GitterEscapeTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeCode()
     {
@@ -114,6 +124,7 @@ class GitterEscapeTestCase extends UnitTest
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeMultilineCode()
     {
