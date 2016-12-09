@@ -7,10 +7,7 @@
  */
 namespace Serafim\MessageComponent\Adapter;
 
-use Serafim\MessageComponent\Manager;
-use Serafim\MessageComponent\Render\Markdown;
-use Serafim\MessageComponent\Render\Render;
-use Serafim\MessageComponent\Render\Tree\DomElementInterface;
+use Serafim\MessageComponent\Dom\Markdown;
 
 /**
  * Class GitterMarkdown
@@ -22,7 +19,7 @@ class GitterMarkdown extends AbstractAdapter
      * @var array
      */
     protected $nodeRenderers = [
-        Markdown\TextRender::class     => DomElementInterface::TEXT_NODE_NAME,
+        Markdown\TextRender::class     => self::TEXT_NODE,
         Markdown\Italic::class         => ['i', 'italic'],
         Markdown\Bold::class           => ['b', 'bold', 'strong'],
         Markdown\Stroke::class         => ['s', 'stroke', 'remove', 'delete'],
@@ -40,7 +37,6 @@ class GitterMarkdown extends AbstractAdapter
      * @var string
      */
     protected $textRenderer = Markdown\TextRender::class;
-
 
     /**
      * @param string $message

@@ -8,8 +8,8 @@
 namespace Serafim\MessageComponent\Adapter;
 
 use Serafim\MessageComponent\Manager;
+use Serafim\MessageComponent\Dom\Document;
 use Serafim\MessageComponent\Parser\Parser;
-use Serafim\MessageComponent\Render\Render;
 
 /**
  * Class AbstractAdapter
@@ -18,7 +18,12 @@ use Serafim\MessageComponent\Render\Render;
 abstract class AbstractAdapter implements AdapterInterface
 {
     /**
-     * @var Render
+     * @var string
+     */
+    const TEXT_NODE = ':text';
+
+    /**
+     * @var Document
      */
     protected $renderer;
 
@@ -41,11 +46,12 @@ abstract class AbstractAdapter implements AdapterInterface
      * AbstractAdapter constructor.
      * @param Manager $manager
      * @param array $options
+     * @throws \Serafim\MessageComponent\Dom\TagRedefineException
      */
     public function __construct(Manager $manager, array $options = [])
     {
         $this->parser = new Parser($manager);
-        $this->renderer = new Render($manager);
+        $this->renderer = new Document();
 
         $this->registerNodeParsers();
         $this->registerNodeRenderers();
@@ -53,11 +59,16 @@ abstract class AbstractAdapter implements AdapterInterface
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\Dom\TagRedefineException
      */
     private function registerNodeRenderers()
     {
         foreach ($this->nodeRenderers as $class => $tags) {
-            $this->renderer->nodeRender((array)$tags, new $class);
+            if ($tags === self::TEXT_NODE) {
+                $this->renderer->text($class);
+            } else {
+                $this->renderer->dom($class)->as(...(array)$tags);
+            }
         }
     }
 

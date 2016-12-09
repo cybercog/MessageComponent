@@ -10,7 +10,6 @@ namespace Serafim\MessageComponent;
 use Serafim\MessageComponent\DI\AdapterNotFoundException;
 use Serafim\MessageComponent\DI\ContainerInterface;
 use Serafim\MessageComponent\Adapter\AdapterInterface;
-use Serafim\MessageComponent\Render\ParametersInjector;
 
 /**
  * Class Message

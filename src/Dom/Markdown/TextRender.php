@@ -5,31 +5,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Render\Markdown;
+namespace Serafim\MessageComponent\Dom\Markdown;
 
-use Serafim\MessageComponent\Render\NodeRenderInterface;
+use Serafim\MessageComponent\Dom\Node\TextElement;
 
 /**
  * Class TextRender
- * @package Serafim\MessageComponent\Render\Markdown
+ * @package Serafim\MessageComponent\Dom\Markdown
  */
-class TextRender implements NodeRenderInterface
+class TextRender extends TextElement
 {
     /**
-     * @return bool
-     */
-    public function isInsulatedRender(): bool
-    {
-        return false;
-    }
-
-    /**
-     * @param \DOMText $text
      * @return string
      */
-    public function render($text): string
+    public function render(): string
     {
-        $body = $text->textContent;
+        $body = $this->dom->textContent;
 
         // \s\s => \s
         $body = preg_replace('/  /u', ' ', $body);
