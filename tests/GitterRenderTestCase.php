@@ -71,7 +71,7 @@ class GitterAdapterTestCase extends UnitTest
      */
     public function testLinkRender()
     {
-        $this->assertEquals('[UrlAndTitle](UrlAndTitle)', $this->render('<url>UrlAndTitle</url>'));
+        $this->assertEquals('[UrlAndTitle](UrlAndTitle)', $this->render('<a>UrlAndTitle</a>'));
         $this->assertEquals('[Title](http://laravel.su)', $this->render('<a href="http://laravel.su">Title</a>'));
         $this->assertEquals('[Title](http://laravel.su)', $this->render('<a href="http://laravel.su" title="Title" />'));
     }
@@ -237,9 +237,14 @@ class GitterAdapterTestCase extends UnitTest
      */
     public function testQuoteRender()
     {
-        $out = '> Blockquote' . "\n\n" . 'message after';
+        $this->assertEquals(
+            '> Blockquote _italic_' . "\n\n" . 'message after',
+            $this->render('<quote>Blockquote <i>italic</i></quote>message after')
+        );
 
-        $this->assertEquals($out, $this->render('<blockquote>Blockquote</blockquote>message after'));
-        $this->assertEquals($out, $this->render('<quote>Blockquote</quote>message after'));
+        $this->assertEquals(
+            '> Blockquote' . "\n\n" . 'message after',
+            $this->render('<quote>Blockquote</quote>message after')
+        );
     }
 }
