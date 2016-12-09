@@ -15,6 +15,11 @@ use Serafim\MessageComponent\Parser\NodeParserInterface;
  */
 class Header implements NodeParserInterface
 {
+    /**
+     * @param \DOMElement|\DOMText $dom
+     * @return string
+     * @throws \LogicException
+     */
     public function parse($dom): string
     {
         throw new \LogicException(__METHOD__ . ' not implemented yet');

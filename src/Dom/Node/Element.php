@@ -55,8 +55,5 @@ abstract class Element implements NodeInterface
     /**
      * @return string
      */
-    public function render(): string
-    {
-        return $this->dom->textContent;
-    }
+    abstract public function render(): string;
 }

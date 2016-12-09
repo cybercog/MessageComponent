@@ -56,7 +56,7 @@ class NodeRegistrar
                 throw new TagRedefineException(sprintf($message, $tag, $this->domNodes[$tag]));
             }
 
-           $this->instead($tag);
+            $this->instead($tag);
         }
 
         return $this;

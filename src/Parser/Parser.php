@@ -29,9 +29,13 @@ class Parser
         $this->manager = $manager;
     }
 
+    /**
+     * @param NodeParserInterface $parser
+     * @throws \LogicException
+     */
     public function nodeParser(NodeParserInterface $parser)
     {
-
+        throw new \LogicException(__METHOD__ . ' not implemented yet');
     }
 
     /**
