@@ -34,11 +34,6 @@ class GitterMarkdown extends AbstractAdapter
     ];
 
     /**
-     * @var string
-     */
-    protected $textRenderer = Markdown\TextRender::class;
-
-    /**
      * @param string $message
      * @return string
      * @throws \LogicException
