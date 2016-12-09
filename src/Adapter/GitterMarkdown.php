@@ -20,17 +20,17 @@ class GitterMarkdown extends AbstractAdapter
      */
     protected $nodeRenderers = [
         Markdown\TextRender::class     => self::TEXT_NODE,
-        Markdown\Italic::class         => ['i', 'italic'],
-        Markdown\Bold::class           => ['b', 'bold', 'strong'],
-        Markdown\Stroke::class         => ['s', 'stroke', 'remove', 'delete'],
-        Markdown\Link::class           => ['a', 'link', 'url'],
-        Markdown\Code::class           => ['code', 'pre', 'kbd'],
-        Markdown\Quote::class          => ['quote', 'blockquote'],
+        Markdown\Italic::class         => ['i'],
+        Markdown\Bold::class           => ['b'],
+        Markdown\Stroke::class         => ['s'],
+        Markdown\Link::class           => ['a'],
+        Markdown\Code::class           => ['code'],
+        Markdown\Quote::class          => ['quote'],
         Markdown\Header::class         => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-        Markdown\User::class           => ['user', 'profile', 'account'],
-        Markdown\HorizontalLine::class => ['hr', 'line', 'delimiter'],
-        Markdown\ListItem::class       => ['li', 'list', 'item'],
-        Markdown\Image::class          => ['img', 'image'],
+        Markdown\User::class           => ['user'],
+        Markdown\HorizontalLine::class => ['hr'],
+        Markdown\ListItem::class       => ['li'],
+        Markdown\Image::class          => ['img'],
     ];
 
     /**

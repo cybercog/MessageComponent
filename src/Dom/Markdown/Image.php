@@ -40,9 +40,6 @@ class Image extends DomElement
     {
         if ($this->dom->hasAttribute('title')) {
             return $this->dom->getAttribute('title');
-
-        } else if ($this->dom->hasAttribute('alt')) {
-            return $this->dom->getAttribute('alt');
         }
 
         return $this->html;

@@ -44,9 +44,6 @@ class Link extends DomElement
     {
         if ($this->dom->hasAttribute('href')) {
             return $this->dom->getAttribute('href');
-
-        } else if ($this->dom->hasAttribute('src')) {
-            return $this->dom->getAttribute('src');
         }
 
         return $this->html;
