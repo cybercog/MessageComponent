@@ -49,7 +49,7 @@ class Renderer
     private function make($element)
     {
         if ($element instanceof \DOMText) {
-            return new RecursiveTextRenderer($this->document, $element);
+            return new ChainTextRenderer($this->document, $element);
         }
 
         /** @var DomNodeInterface $node */

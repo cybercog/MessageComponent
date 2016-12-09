@@ -12,10 +12,10 @@ use Serafim\MessageComponent\Dom\Node\TextElement;
 use Serafim\MessageComponent\Dom\Node\NodeInterface;
 
 /**
- * Class TextRenderer
+ * Class ChainTextRenderer
  * @package Serafim\MessageComponent\Dom\Render
  */
-class RecursiveTextRenderer extends TextElement
+class ChainTextRenderer extends TextElement
 {
     /**
      * RecursiveTextRenderer constructor.
