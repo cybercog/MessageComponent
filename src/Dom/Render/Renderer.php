@@ -25,6 +25,16 @@ class Renderer
     private $document;
 
     /**
+     * @var array
+     */
+    private $validParsedXml = ['<?xml', '<!doctype'];
+
+    /**
+     * @var string
+     */
+    private $charset = 'utf-8';
+
+    /**
      * Renderer constructor.
      * @param Document $document
      */
@@ -78,9 +88,9 @@ class Renderer
      */
     private function createXml(string $body): \DOMElement
     {
-        $document = new \DOMDocument('1.0', 'utf-8');
+        $document = new \DOMDocument('1.0', $this->charset);
 
-        if (Str::startsWith($body, ['<?xml', '<!doctype'])) {
+        if (Str::startsWith($body, $this->validParsedXml)) {
             $document->loadXML($body);
             return $document->documentElement;
         }
