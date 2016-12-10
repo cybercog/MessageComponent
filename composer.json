@@ -4,7 +4,7 @@
     "description": "Message component",
     "license": "WTFPL",
     "require": {
-        "php": ">=7.0 || hhvm",
+        "php": ">=7.0",
         "nesbot/carbon": "~1.9"
     },
     "autoload": {
