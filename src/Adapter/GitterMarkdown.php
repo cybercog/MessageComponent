@@ -8,6 +8,7 @@
 namespace Serafim\MessageComponent\Adapter;
 
 use Serafim\MessageComponent\Render\Markdown;
+use Serafim\MessageComponent\Render\Common;
 
 /**
  * Class GitterMarkdown
@@ -19,18 +20,22 @@ class GitterMarkdown extends AbstractAdapter
      * @var array
      */
     protected $nodeRenderers = [
+        // Text
         Markdown\TextRender::class     => self::TEXT_NODE,
-        Markdown\Italic::class         => ['i'],
-        Markdown\Bold::class           => ['b'],
-        Markdown\Stroke::class         => ['s'],
-        Markdown\Link::class           => ['a'],
-        Markdown\Code::class           => ['code'],
-        Markdown\Quote::class          => ['quote'],
+        // Markdown
+        Markdown\Italic::class         => 'i',
+        Markdown\Bold::class           => 'b',
+        Markdown\Stroke::class         => 's',
+        Markdown\Link::class           => 'a',
+        Markdown\Code::class           => 'code',
+        Markdown\Quote::class          => 'quote',
         Markdown\Header::class         => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-        Markdown\User::class           => ['user'],
-        Markdown\HorizontalLine::class => ['hr'],
-        Markdown\ListItem::class       => ['li'],
-        Markdown\Image::class          => ['img'],
+        Markdown\User::class           => 'user',
+        Markdown\HorizontalLine::class => 'hr',
+        Markdown\ListItem::class       => 'li',
+        Markdown\Image::class          => 'img',
+        // Common
+        Common\Date::class             => 'date'
     ];
 
     /**

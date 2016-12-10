@@ -35,5 +35,7 @@ $out = $manager->render('gitter', '<user>SerafimArts</user> says `<i>{{ message 
 - `<img>Image url and|or title</img>` - Image
     - Attribute `src` (optional): Image url
     - Attribute `title` (optional): Image title
+- '<date>02-02-2042</date>' - Datetime string
+    - Attribute `format` (optional): Date format. It can be one of `date-time` (default), `date`, `formatted-date`, `time`, `day-date-time`, `atom`, `cookie`, `iso8601`, `rfc822`, `rfc850`, `rfc1036`, `rfc1123`, `rfc2822`, `rfc3339`, `rss` or `w3c`,            
 
 _All code follows PSR-1, PSR-2, PSR-4, PSR-5, PSR-11 and PSR-12 coding standards._

@@ -7,6 +7,8 @@
  */
 namespace Serafim\MessageComponent\Dom;
 
+use Serafim\MessageComponent\Dom\Exception\TagRedefineException;
+
 /**
  * Class NodeRegistrar
  * @package Serafim\MessageComponent\Dom

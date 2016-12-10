@@ -7,6 +7,7 @@
  */
 namespace Serafim\MessageComponent\Unit;
 
+use Carbon\Carbon;
 use Serafim\MessageComponent\Adapter\GitterMarkdown;
 use Serafim\MessageComponent\Manager;
 
@@ -61,8 +62,8 @@ class GitterAdapterTestCase extends UnitTest
     public function testImageRender()
     {
         $this->assertEquals('![UrlAndTitle](UrlAndTitle)', $this->render('<img>UrlAndTitle</img>'));
-        $this->assertEquals('![Title](http://laravel.su)', $this->render('<img src="http://laravel.su">Title</img>'));
-        $this->assertEquals('![Title](http://laravel.su)', $this->render('<img src="http://laravel.su" title="Title" />'));
+        $this->assertEquals('![Title](http://site.ru)', $this->render('<img src="http://site.ru">Title</img>'));
+        $this->assertEquals('![Title](http://site.ru)', $this->render('<img src="http://site.ru" title="Title" />'));
     }
 
     /**
@@ -72,8 +73,8 @@ class GitterAdapterTestCase extends UnitTest
     public function testLinkRender()
     {
         $this->assertEquals('[UrlAndTitle](UrlAndTitle)', $this->render('<a>UrlAndTitle</a>'));
-        $this->assertEquals('[Title](http://laravel.su)', $this->render('<a href="http://laravel.su">Title</a>'));
-        $this->assertEquals('[Title](http://laravel.su)', $this->render('<a href="http://laravel.su" title="Title" />'));
+        $this->assertEquals('[Title](http://site.ru)', $this->render('<a href="http://site.ru">Title</a>'));
+        $this->assertEquals('[Title](http://site.ru)', $this->render('<a href="http://site.ru" title="Title" />'));
     }
 
     /**
@@ -155,6 +156,16 @@ class GitterAdapterTestCase extends UnitTest
     public function testInlineCodeRender()
     {
         $this->assertEquals('`code`', $this->render('<code>code</code>'));
+    }
+
+    /**
+     * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
+     */
+    public function testDateRender()
+    {
+        static::assertEquals('2042-02-02 00:00:00', $this->render('<date>2042-02-02</date>'));
+        static::assertEquals('2042-02-02T00:00:00+00:00', $this->render('<date format="rfc3339">2042-02-02</date>'));
     }
 
     /**

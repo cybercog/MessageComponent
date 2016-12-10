@@ -5,11 +5,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Dom;
+namespace Serafim\MessageComponent\Dom\Exception;
 
 /**
  * Class TagRedefineException
- * @package Serafim\MessageComponent\Dom
+ * @package Serafim\MessageComponent\Dom\Exception
  */
 class TagRedefineException extends \LogicException
 {
