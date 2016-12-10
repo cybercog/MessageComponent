@@ -3,8 +3,9 @@ language: php
 php:
   - 7.1
   - 7.0
-  - hhvm
   - nightly
+  - hhvm-3.12
+  - hhvm-nightly
 
 before_script:
   - composer self-update
