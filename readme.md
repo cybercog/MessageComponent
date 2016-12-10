@@ -51,7 +51,7 @@ See: https://github.com/SerafimArts/MessageComponent/issues/2
 - `<img>Image url and|or title</img>` - Image
     - Attribute `src` (optional): Image url
     - Attribute `title` (optional): Image title
-- '<date>02-02-2042</date>' - Datetime string
+- `<date>02-02-2042</date>` - Datetime string
     - Attribute `format` (optional): Date format. 
     It can be one of `date-time` (default), `date`, `formatted-date`, `time`, `day-date-time`, `atom`, `cookie`, 
     `iso8601`, `rfc822`, `rfc850`, `rfc1036`, `rfc1123`, `rfc2822`, `rfc3339`, `rss` or `w3c`
