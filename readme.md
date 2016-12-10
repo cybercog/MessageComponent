@@ -27,15 +27,13 @@ $out = $manager->render('gitter', '<user>SerafimArts</user> says `<i>{{ message 
 
 ## Available platforms
 
+See: https://github.com/SerafimArts/MessageComponent/issues/1
+
 - Gitter: `Serafim\MessageComponent\Adapter\GitterMarkdown::class`
-- Skype: _in progress..._
-- Slack: _in progress..._
-- Telegram: _in progress..._
-- GitHub: _in progress..._
-- Vk: _in progress..._
-- Facebook: _in progress..._
 
 ## Available tags
+
+See: https://github.com/SerafimArts/MessageComponent/issues/2
 
 - `<i>Italic</i>` - Italic text
 - `<b>Bold</b>` - Bold text
