@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 /**
  * This file is part of MessageComponent package.
  *
@@ -7,9 +7,7 @@
  */
 namespace Serafim\MessageComponent\Dom\Render;
 
-use Illuminate\Support\Str;
 use Serafim\MessageComponent\Dom\Document;
-use Serafim\MessageComponent\Dom\Node\DomElement;
 use Serafim\MessageComponent\Dom\Node\DomNodeInterface;
 use Serafim\MessageComponent\Dom\Node\TextElement;
 
@@ -79,6 +77,7 @@ class Renderer
     private function findElementRenderer(\DOMElement $element): DomNodeInterface
     {
         $class = $this->document->findTag($element->tagName);
+
         return new $class($this->document, $element);
     }
 
@@ -90,12 +89,29 @@ class Renderer
     {
         $document = new \DOMDocument('1.0', $this->charset);
 
-        if (Str::startsWith($body, $this->validParsedXml)) {
+        if ($this->isCanBeParsedAsXml($body)) {
             $document->loadXML($body);
+
             return $document->documentElement;
         }
 
         $document->loadXML('<root>' . $body . '</root>');
+
         return $document->childNodes->item(0);
+    }
+
+    /**
+     * @param string $body
+     * @return bool
+     */
+    private function isCanBeParsedAsXml(string $body): bool
+    {
+        foreach ((array)$this->validParsedXml as $needle) {
+            if (0 === strpos($body, (string)$needle)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

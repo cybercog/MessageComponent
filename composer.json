@@ -5,7 +5,7 @@
     "license": "WTFPL",
     "require": {
         "php": ">=7.0",
-        "illuminate/support": "~5.3"
+        "nesbot/carbon": "~1.9"
     },
     "autoload": {
         "psr-4": {

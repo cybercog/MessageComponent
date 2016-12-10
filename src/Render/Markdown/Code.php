@@ -22,7 +22,7 @@ class Code extends DomElement
     {
         $lang = $this->getLanguage();
 
-        if ($lang !== '' || str_contains($this->html, "\n")) {
+        if ('' !== $lang || false !== strpos($this->html, "\n")) {
             return $this->multiline($lang);
         }
 
