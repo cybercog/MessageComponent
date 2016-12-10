@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/SerafimArts/MessageComponent.svg?branch=master)](https://travis-ci.org/SerafimArts/MessageComponent)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SerafimArts/MessageComponent/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SerafimArts/MessageComponent/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/SerafimArts/MessageComponent/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SerafimArts/MessageComponent/?branch=master)
-[![GitHub license](https://img.shields.io/badge/license-WTFPL-green.svg?style=flat-square)](https://raw.githubusercontent.com/SerafimArts/Properties/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-WTFPL-green.svg?style=flat)](https://raw.githubusercontent.com/SerafimArts/Properties/master/LICENSE)
+[![Packagist](https://img.shields.io/packagist/v/serafim/message-component.svg)](https://packagist.org/packages/serafim/message-component)
 
 
 Cross-platform message render component.
