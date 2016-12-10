@@ -46,7 +46,7 @@ class NodeRegistrar
     }
 
     /**
-     * @param \string[] ...$tags
+     * @param string[] ...$tags
      * @return $this
      * @throws TagRedefineException
      */
