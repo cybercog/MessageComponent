@@ -7,7 +7,7 @@
  */
 namespace Serafim\MessageComponent\Adapter;
 
-use Serafim\MessageComponent\Dom\Markdown;
+use Serafim\MessageComponent\Render\Markdown;
 
 /**
  * Class GitterMarkdown

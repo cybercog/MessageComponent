@@ -5,14 +5,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Dom\Markdown;
+namespace Serafim\MessageComponent\Render\Markdown;
 
 
 use Serafim\MessageComponent\Dom\Node\DomElement;
 
 /**
  * Class ListItem
- * @package Serafim\MessageComponent\Dom\Markdown
+ * @package Serafim\MessageComponent\Render\Markdown
  */
 class ListItem extends DomElement
 {
@@ -21,10 +21,10 @@ class ListItem extends DomElement
      */
     public function render(): string
     {
-        $isСontinuation = $this->isСontinuationOfList();
+        $isContinuation = $this->isContinuationOfList();
         $nestingLevel   = $this->getNestedLevel();
 
-        $prefix  = $isСontinuation ? '' : "\n";
+        $prefix  = $isContinuation ? '' : "\n";
         $prefix .= str_repeat('  ', $nestingLevel);
 
         return $prefix . '- ' . $this->text . "\n";
@@ -52,7 +52,7 @@ class ListItem extends DomElement
      *
      * @return bool
      */
-    private function isСontinuationOfList()
+    private function isContinuationOfList()
     {
         return
             $this->dom->previousSibling &&

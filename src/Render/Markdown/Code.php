@@ -5,13 +5,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Dom\Markdown;
+namespace Serafim\MessageComponent\Render\Markdown;
 
 use Serafim\MessageComponent\Dom\Node\DomElement;
 
 /**
  * Class Code
- * @package Serafim\MessageComponent\Dom\Markdown
+ * @package Serafim\MessageComponent\Render\Markdown
  */
 class Code extends DomElement
 {

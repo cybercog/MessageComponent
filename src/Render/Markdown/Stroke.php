@@ -5,21 +5,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Dom\Markdown;
+namespace Serafim\MessageComponent\Render\Markdown;
 
 use Serafim\MessageComponent\Dom\Node\DomElement;
 
 /**
- * Class User
- * @package Serafim\MessageComponent\Dom\Markdown
+ * Class Stroke
+ * @package Serafim\MessageComponent\Render\Markdown
  */
-class User extends DomElement
+class Stroke extends DomElement
 {
     /**
      * @return string
      */
     public function render(): string
     {
-        return '@' . $this->text;
+        return '~~' . $this->text . '~~';
     }
 }

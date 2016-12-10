@@ -5,24 +5,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Dom\Markdown;
+namespace Serafim\MessageComponent\Render\Markdown;
 
 use Serafim\MessageComponent\Dom\Node\DomElement;
 
 /**
- * Class Image
- * @package Serafim\MessageComponent\Dom\Markdown
+ * Class Link
+ * @package Serafim\MessageComponent\Render\Markdown
  */
-class Image extends DomElement
+class Link extends DomElement
 {
-    /**
-     * @return bool
-     */
-    public function isInsulatedRender(): bool
-    {
-        return false;
-    }
-
     /**
      * @return string
      */
@@ -30,7 +22,7 @@ class Image extends DomElement
     {
         list($title, $url) = [$this->prepareTitle(), $this->prepareUrl()];
 
-        return sprintf('![%s](%s)', $title, $url);
+        return sprintf('[%s](%s)', $title, $url);
     }
 
     /**
@@ -50,8 +42,10 @@ class Image extends DomElement
      */
     private function prepareUrl() : string
     {
-        return $this->dom->hasAttribute('src')
-            ? $this->dom->getAttribute('src')
-            : $this->html;
+        if ($this->dom->hasAttribute('href')) {
+            return $this->dom->getAttribute('href');
+        }
+
+        return $this->html;
     }
 }

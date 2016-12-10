@@ -5,21 +5,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Dom\Markdown;
+namespace Serafim\MessageComponent\Render\Markdown;
 
 use Serafim\MessageComponent\Dom\Node\DomElement;
 
 /**
- * Class Italic
- * @package Serafim\MessageComponent\Dom\Markdown
+ * Class Header
+ * @package Serafim\MessageComponent\Render\Markdown
  */
-class Italic extends DomElement
+class Header extends DomElement
 {
     /**
      * @return string
      */
     public function render(): string
     {
-        return '_' . $this->text . '_';
+        $level = substr($this->name, 1);
+
+        return str_repeat('#', (int)$level) . ' ' . $this->text . "\n";
     }
 }

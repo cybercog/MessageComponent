@@ -5,15 +5,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Dom\Markdown;
+namespace Serafim\MessageComponent\Render\Markdown;
 
 use Serafim\MessageComponent\Dom\Node\DomElement;
 
 /**
- * Class Link
- * @package Serafim\MessageComponent\Dom\Markdown
+ * Class Image
+ * @package Serafim\MessageComponent\Render\Markdown
  */
-class Link extends DomElement
+class Image extends DomElement
 {
     /**
      * @return string
@@ -22,7 +22,7 @@ class Link extends DomElement
     {
         list($title, $url) = [$this->prepareTitle(), $this->prepareUrl()];
 
-        return sprintf('[%s](%s)', $title, $url);
+        return sprintf('![%s](%s)', $title, $url);
     }
 
     /**
@@ -42,10 +42,8 @@ class Link extends DomElement
      */
     private function prepareUrl() : string
     {
-        if ($this->dom->hasAttribute('href')) {
-            return $this->dom->getAttribute('href');
-        }
-
-        return $this->html;
+        return $this->dom->hasAttribute('src')
+            ? $this->dom->getAttribute('src')
+            : $this->html;
     }
 }

@@ -5,23 +5,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Dom\Markdown;
+namespace Serafim\MessageComponent\Render\Markdown;
 
 use Serafim\MessageComponent\Dom\Node\DomElement;
 
 /**
- * Class Header
- * @package Serafim\MessageComponent\Dom\Markdown
+ * Class Quote
+ * @package Serafim\MessageComponent\Render\Markdown
  */
-class Header extends DomElement
+class Quote extends DomElement
 {
     /**
      * @return string
      */
     public function render(): string
     {
-        $level = substr($this->name, 1);
+        $out = '>' . str_replace("\n", "\n>", $this->text);
 
-        return str_repeat('#', (int)$level) . ' ' . $this->text . "\n";
+        // Normalize quote
+        $out = preg_replace('/^>\s*(\w+)/iu', '> $1', $out);
+
+        return $out . "\n\n";
     }
 }

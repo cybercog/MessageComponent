@@ -5,21 +5,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Dom\Markdown;
+namespace Serafim\MessageComponent\Render\Markdown;
 
 use Serafim\MessageComponent\Dom\Node\DomElement;
 
 /**
- * Class HorizontalLine
- * @package Serafim\MessageComponent\Dom\Markdown
+ * Class User
+ * @package Serafim\MessageComponent\Render\Markdown
  */
-class HorizontalLine extends DomElement
+class User extends DomElement
 {
     /**
      * @return string
      */
     public function render(): string
     {
-        return "\n---\n";
+        return '@' . $this->text;
     }
 }
