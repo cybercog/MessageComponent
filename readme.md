@@ -1,8 +1,15 @@
 # Message Component
 
 [![Build Status](https://travis-ci.org/SerafimArts/MessageComponent.svg?branch=master)](https://travis-ci.org/SerafimArts/MessageComponent)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SerafimArts/MessageComponent/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SerafimArts/MessageComponent/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/SerafimArts/MessageComponent/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SerafimArts/MessageComponent/?branch=master)
+[![GitHub license](https://img.shields.io/badge/license-WTFPL-green.svg?style=flat-square)](https://raw.githubusercontent.com/SerafimArts/Properties/master/LICENSE)
 
-Multiplatform message render component.
+
+Cross-platform message render component.
+
+- Installation: `composer require serafim/message-component`
+- Requirements: `php >= 7.0` or `hhvm >= 3.11`
 
 ## Example:
 
