@@ -107,9 +107,12 @@ class DomElement extends Element implements DomNodeInterface
     public function __get(string $property)
     {
         switch ($property) {
-            case 'html': return $this->innerHtml();
-            case 'text': return $this->innerText();
-            case 'name': return $this->dom->tagName;
+            case 'html':
+                return $this->innerHtml();
+            case 'text':
+                return $this->innerText();
+            case 'name':
+                return $this->dom->tagName;
         }
 
         return null;
