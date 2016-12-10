@@ -22,7 +22,7 @@ $out = $manager->render('gitter', '<user>SerafimArts</user> says `<i>{{ message 
 - `<i>Italic</i>` - Italic text
 - `<b>Bold</b>` - Bold text
 - `<s>Stroke</s>` - Stroke text
-- `<a>Link</a>` - External link
+- `<a>Link and/or title</a>` - External link
     - Attribute `href` (optional): Link url
     - Attribute `title` (optional): Link title
 - `<code>Code</code>` - Single or multiline code
@@ -32,7 +32,7 @@ $out = $manager->render('gitter', '<user>SerafimArts</user> says `<i>{{ message 
 - `<user>Name</user>` - Username
 - `<hr />` - Horizontal delimiter line
 - `<li>List item</li>` - Just a list item
-- `<img>Image url</img>` - Image
+- `<img>Image url and|or title</img>` - Image
     - Attribute `src` (optional): Image url
     - Attribute `title` (optional): Image title
 
