@@ -114,9 +114,12 @@ class Date extends DomElement
      */
     public function format(Carbon $date, string $format): string
     {
-        $format = array_key_exists($format, $this->formats) ? $format : static::DEFAULT_FORMAT;
-        $method = $this->formats[$format];
+        if (array_key_exists($format, $this->formats)) {
+            $method = $this->formats[$format];
 
-        return $date->{$method}();
+            return $date->{$method}();
+        }
+
+        return $date->format($format);
     }
 }

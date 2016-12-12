@@ -19,6 +19,7 @@ class PhpBBRenderTestCase extends AbstractRenderTests
     /**
      * @param string $body
      * @return string
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function render(string $body): string
     {
@@ -27,104 +28,118 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testItalicRender()
     {
-        $this->assertEquals('[i]italic[/i]', $this->render('<i>italic</i>'));
+        static::assertEquals('[i]italic[/i]', $this->render('<i>italic</i>'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testBoldRender()
     {
-        $this->assertEquals('[b]bold[/b]', $this->render('<b>bold</b>'));
+        static::assertEquals('[b]bold[/b]', $this->render('<b>bold</b>'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testStrokeRender()
     {
-        $this->assertEquals('[s]stroke[/s]', $this->render('<s>stroke</s>'));
+        static::assertEquals('[s]stroke[/s]', $this->render('<s>stroke</s>'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testImageRender()
     {
-        $this->assertEquals('[img]UrlAndTitle[/img]', $this->render('<img>UrlAndTitle</img>'));
+        static::assertEquals('[img]UrlAndTitle[/img]', $this->render('<img>UrlAndTitle</img>'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testImageWithUrlRender()
     {
-        $this->assertEquals('[img]http://site.ru[/img]', $this->render('<img src="http://site.ru">Title</img>'));
+        static::assertEquals('[img]http://site.ru[/img]', $this->render('<img src="http://site.ru">Title</img>'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testImageWithTitleAndUrlRender()
     {
-        $this->assertEquals('[img]http://site.ru[/img]', $this->render('<img src="http://site.ru" title="Title" />'));
+        static::assertEquals('[img]http://site.ru[/img]', $this->render('<img src="http://site.ru" title="Title" />'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testLinkRender()
     {
-        $this->assertEquals('[url=UrlAndTitle]UrlAndTitle[/url]', $this->render('<a>UrlAndTitle</a>'));
+        static::assertEquals('[url=UrlAndTitle]UrlAndTitle[/url]', $this->render('<a>UrlAndTitle</a>'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testLinkWithUrlRender()
     {
-        $this->assertEquals('[url=http://site.ru]Title[/url]', $this->render('<a href="http://site.ru">Title</a>'));
+        static::assertEquals('[url=http://site.ru]Title[/url]', $this->render('<a href="http://site.ru">Title</a>'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testLinkWithTitleAndUrlRender()
     {
-        $this->assertEquals('[url=http://site.ru]Title[/url]',
-            $this->render('<a href="http://site.ru" title="Title" />'));
+        static::assertEquals(
+            '[url=http://site.ru]Title[/url]',
+            $this->render('<a href="http://site.ru" title="Title" />')
+        );
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testHorizontalLineRender()
     {
-        $this->assertEquals("\n\n", $this->render('<hr />'));
+        static::assertEquals("\n\n", $this->render('<hr />'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testHeadersRender()
     {
-        $this->assertEquals('[size=170]H1[/size]', $this->render('<h1>H1</h1>'));
-        $this->assertEquals('[size=142]H2[/size]', $this->render('<h2>H2</h2>'));
-        $this->assertEquals('[size=114]H3[/size]', $this->render('<h3>H3</h3>'));
-        $this->assertEquals('[size=86]H4[/size]',  $this->render('<h4>H4</h4>'));
-        $this->assertEquals('[size=58]H5[/size]',  $this->render('<h5>H5</h5>'));
-        $this->assertEquals('[size=30]H6[/size]',  $this->render('<h6>H6</h6>'));
+        static::assertEquals('[size=170]H1[/size]', $this->render('<h1>H1</h1>'));
+        static::assertEquals('[size=142]H2[/size]', $this->render('<h2>H2</h2>'));
+        static::assertEquals('[size=114]H3[/size]', $this->render('<h3>H3</h3>'));
+        static::assertEquals('[size=86]H4[/size]', $this->render('<h4>H4</h4>'));
+        static::assertEquals('[size=58]H5[/size]', $this->render('<h5>H5</h5>'));
+        static::assertEquals('[size=30]H6[/size]', $this->render('<h6>H6</h6>'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testListRender()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '[list]' . "\n" .
             '  [*] list item' . "\n" .
             '[/list]' . "\n",
@@ -134,10 +149,11 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testListWithMixedRender()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '[i]italic[/i][list]' . "\n" .
             '  [*] list item' . "\n" .
             '[/list]' . "\n",
@@ -147,10 +163,11 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testSeveralItemsListRender()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '[list]' . "\n" .
             '  [*] list item' . "\n" .
             '  [*] list item' . "\n" .
@@ -161,10 +178,11 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testNestedListRender()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '[i]italic[/i][list]' . "\n" .
             '  [*] list item' . "\n" .
             '  [list]' . "\n" .
@@ -177,10 +195,11 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testNestedListWithMixedBodyRender()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '[i]italic[/i][list]' . "\n" .
             '  [*] [i]asdasd[/i] list item' . "\n" .
             '  [list]' . "\n" .
@@ -194,14 +213,16 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testInlineCodeRender()
     {
-        $this->assertEquals('[code]code[/code]', $this->render('<code>code</code>'));
+        static::assertEquals('[code]code[/code]', $this->render('<code>code</code>'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testDateRender()
     {
@@ -211,10 +232,11 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testMultilineCodeRender()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '[code]' . "\n" .
                 'code' . "\n" .
             '[/code]',
@@ -228,10 +250,11 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testMultilineFromSingleLineAndLanguageCodeRender()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '[code=php]code[/code]',
             $this->render('<code lang="php">code</code>')
         );
@@ -239,10 +262,11 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testMultilineWithLanguageCodeRender()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '[code=php]' . "\n" .
                 'code' . "\n" .
             '[/code]',
@@ -256,10 +280,11 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testCodeRenderInsulation()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '[code]' . "\n" .
                 '<b>This text will not be rendered as bold</b>' . "\n" .
                 '<i>This text will not be rendered as italic or <s>stroke or <b>bold</b></s></i>' . "\n" .
@@ -276,10 +301,11 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testMixedStylesRender()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '[i]italic [b]bold[/b] [s]stroke[/s][/i][b]bold[/b]',
             $this->render('<i>italic <b>bold</b> <s>stroke</s></i><b>bold</b>')
         );
@@ -287,15 +313,16 @@ class PhpBBRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testQuoteRender()
     {
-        $this->assertEquals(
+        static::assertEquals(
             '[quote]Blockquote [i]italic[/i][/quote]message after',
             $this->render('<quote>Blockquote <i>italic</i></quote>message after')
         );
 
-        $this->assertEquals(
+        static::assertEquals(
             '[quote]Blockquote[/quote]message after',
             $this->render('<quote>Blockquote</quote>message after')
         );

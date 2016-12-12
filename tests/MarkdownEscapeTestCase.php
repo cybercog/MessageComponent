@@ -28,115 +28,126 @@ class MarkdownEscapeTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeItalic()
     {
-        $this->assertEquals('\_italic\_', $this->render('_italic_'));
-        $this->assertEquals('\*italic\*', $this->render('*italic*'));
+        static::assertEquals('\_italic\_', $this->render('_italic_'));
+        static::assertEquals('\*italic\*', $this->render('*italic*'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeBold()
     {
-        $this->assertEquals('\_\_bold\_\_', $this->render('__bold__'));
-        $this->assertEquals('\*\*bold\*\*', $this->render('**bold**'));
+        static::assertEquals('\_\_bold\_\_', $this->render('__bold__'));
+        static::assertEquals('\*\*bold\*\*', $this->render('**bold**'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeStroke()
     {
-        $this->assertEquals('\~\~stroke\~\~', $this->render('~~stroke~~'));
-        $this->assertEquals('\~escaped but not a stroke\~', $this->render('~escaped but not a stroke~'));
+        static::assertEquals('\~\~stroke\~\~', $this->render('~~stroke~~'));
+        static::assertEquals('\~escaped but not a stroke\~', $this->render('~escaped but not a stroke~'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeImage()
     {
-        $this->assertEquals('!\[image\]\(image\)', $this->render('![image](image)'));
-        $this->assertEquals('not image](not image)', $this->render('not image](not image)'));
+        static::assertEquals('!\[image\]\(image\)', $this->render('![image](image)'));
+        static::assertEquals('not image](not image)', $this->render('not image](not image)'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeLink()
     {
-        $this->assertEquals('\[url\]\(url\)', $this->render('[url](url)'));
+        static::assertEquals('\[url\]\(url\)', $this->render('[url](url)'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeHorizontalLine()
     {
-        $this->assertEquals('\-\-\-', $this->render('---'));
-        $this->assertEquals('--', $this->render('--'));
+        static::assertEquals('\-\-\-', $this->render('---'));
+        static::assertEquals('--', $this->render('--'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeHeaders()
     {
-        $this->assertEquals('\# h1', $this->render('# h1'));
-        $this->assertEquals('\## h1', $this->render('## h1'));
-        $this->assertEquals('\### h1', $this->render('### h1'));
-        $this->assertEquals('\#### h1', $this->render('#### h1'));
-        $this->assertEquals('\##### h1', $this->render('##### h1'));
-        $this->assertEquals('\###### h1', $this->render('###### h1'));
+        static::assertEquals('\# h1', $this->render('# h1'));
+        static::assertEquals('\## h1', $this->render('## h1'));
+        static::assertEquals('\### h1', $this->render('### h1'));
+        static::assertEquals('\#### h1', $this->render('#### h1'));
+        static::assertEquals('\##### h1', $this->render('##### h1'));
+        static::assertEquals('\###### h1', $this->render('###### h1'));
 
-        $this->assertEquals('Not # a ## header', $this->render('Not # a ## header'));
+        static::assertEquals('Not # a ## header', $this->render('Not # a ## header'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeListItem()
     {
-        $this->assertEquals('\- List element', $this->render('- List element'));
-        $this->assertEquals('\- [] List element', $this->render('- [] List element'));
-        $this->assertEquals('> \- List element in quote', $this->render('> - List element in quote'));
-        $this->assertEquals('Not - a - list - element', $this->render('Not - a - list - element'));
+        static::assertEquals('\- List element', $this->render('- List element'));
+        static::assertEquals('\- [] List element', $this->render('- [] List element'));
+        static::assertEquals('> \- List element in quote', $this->render('> - List element in quote'));
+        static::assertEquals('Not - a - list - element', $this->render('Not - a - list - element'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeListAlterItem()
     {
-        $this->assertEquals('\* List element', $this->render('* List element'));
-        $this->assertEquals('\* [] List element', $this->render('* [] List element'));
-        $this->assertEquals('> \* List element in quote', $this->render('> * List element in quote'));
-        $this->assertEquals('Not \* a \* list \* element', $this->render('Not * a * list * element'));
+        static::assertEquals('\* List element', $this->render('* List element'));
+        static::assertEquals('\* [] List element', $this->render('* [] List element'));
+        static::assertEquals('> \* List element in quote', $this->render('> * List element in quote'));
+        static::assertEquals('Not \* a \* list \* element', $this->render('Not * a * list * element'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeCode()
     {
-        $this->assertEquals('\`some\`', $this->render('`some`'));
+        static::assertEquals('\`some\`', $this->render('`some`'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeMultilineCode()
     {
         // With language
-        $this->assertEquals(
+        static::assertEquals(
             '\\`\\`\\`lang' . "\n" . 'code' . "\n" . '\\`\\`\\`',
             $this->render('```lang' . "\n" . 'code' . "\n" . '```')
         );
 
         // Without language
-        $this->assertEquals(
+        static::assertEquals(
             '\\`\\`\\`' . "\n" . 'code' . "\n" . '\\`\\`\\`',
             $this->render('```' . "\n" . 'code' . "\n" . '```')
         );

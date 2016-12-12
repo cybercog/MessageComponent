@@ -19,6 +19,7 @@ class GitterEscapeTestCase extends MarkdownEscapeTestCase
     /**
      * @param string $text
      * @return string
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     final public function render(string $text): string
     {
@@ -27,42 +28,46 @@ class GitterEscapeTestCase extends MarkdownEscapeTestCase
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeCommands()
     {
-        $this->assertEquals('`/collapse`', $this->render('/collapse'));
-        $this->assertEquals('Not a /command', $this->render('Not a /command'));
+        static::assertEquals('`/collapse`', $this->render('/collapse'));
+        static::assertEquals('Not a /command', $this->render('Not a /command'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeUser()
     {
-        $this->assertEquals('`@user`', $this->render('@user'));
-        $this->assertEquals('\``@user`\`', $this->render('`@user`'));
+        static::assertEquals('`@user`', $this->render('@user'));
+        static::assertEquals('\``@user`\`', $this->render('`@user`'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeIssueLink()
     {
         // Positive
-        $this->assertEquals('`#1`', $this->render('#1'));
-        $this->assertEquals('\``#1`\`', $this->render('`#1`'));
-        $this->assertEquals('\# 1', $this->render('# 1'));
+        static::assertEquals('`#1`', $this->render('#1'));
+        static::assertEquals('\``#1`\`', $this->render('`#1`'));
+        static::assertEquals('\# 1', $this->render('# 1'));
 
         // Negative
-        $this->assertEquals('#test', $this->render('#test'));
+        static::assertEquals('#test', $this->render('#test'));
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testEscapeLatex()
     {
-        $this->assertEquals('`$$test$$`', $this->render('$$test$$'));
-        $this->assertEquals('\``$$test$$`\`', $this->render('`$$test$$`'));
+        static::assertEquals('`$$test$$`', $this->render('$$test$$'));
+        static::assertEquals('\``$$test$$`\`', $this->render('`$$test$$`'));
     }
 }

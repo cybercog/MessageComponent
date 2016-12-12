@@ -57,7 +57,7 @@ See: https://github.com/SerafimArts/MessageComponent/issues/2
 - `<h1>Header 1</h1>` - Header 1 (can be h1...h6)
 - `<user>Name</user>` - Username
     - Attribute `login` (optional): User login
-    - Attribute `identify` (optional): User ID
+    - Attribute `uid` (optional): User ID
 - `<hr />` - Horizontal delimiter line
 - `<li>List item</li>` - Just a list item
 - `<img>Image url and|or title</img>` - Image

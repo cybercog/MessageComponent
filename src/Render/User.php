@@ -36,6 +36,6 @@ class User extends DomElement
      */
     public function getIdentify(): string
     {
-        return $this->attr('identify', $this->getLogin());
+        return $this->attr('uid', $this->getLogin());
     }
 }

@@ -19,6 +19,7 @@ class GitterRenderTestCase extends MarkdownRenderTestCase
     /**
      * @param string $text
      * @return string
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     final public function render(string $text): string
     {
@@ -27,10 +28,11 @@ class GitterRenderTestCase extends MarkdownRenderTestCase
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testUserRender()
     {
-        $this->assertEquals('@UserLogin', $this->render('<user>UserLogin</user>'));
-        $this->assertEquals('@UserLogin', $this->render('<user login="UserLogin">Vasya Pupkin</user>'));
+        static::assertEquals('@UserLogin', $this->render('<user>UserLogin</user>'));
+        static::assertEquals('@UserLogin', $this->render('<user login="UserLogin">Vasya Pupkin</user>'));
     }
 }

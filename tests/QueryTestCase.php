@@ -43,9 +43,9 @@ class QueryTestCase extends AbstractTests
     {
         /** @var User $user */
         foreach($this->query()->find('user') as $user) {
-            $this->assertInstanceOf(User::class, $user);
+            static::assertInstanceOf(User::class, $user);
 
-            $this->assertEquals('Vasya', $user->getLogin());
+            static::assertEquals('Vasya', $user->getLogin());
         }
     }
 
@@ -57,10 +57,10 @@ class QueryTestCase extends AbstractTests
     {
         /** @var Code $code */
         foreach ($this->query()->find('code') as $code) {
-            $this->assertInstanceOf(Code::class, $code);
+            static::assertInstanceOf(Code::class, $code);
 
-            $this->assertTrue($code->isMultiline());
-            $this->assertFalse($code->hasLanguage());
+            static::assertTrue($code->isMultiline());
+            static::assertFalse($code->hasLanguage());
         }
     }
 
@@ -71,11 +71,11 @@ class QueryTestCase extends AbstractTests
     public function testFindById()
     {
         foreach($this->query()->findBy('id', 'quote') as $quote) {
-            $this->assertInstanceOf(Quote::class, $quote);
+            static::assertInstanceOf(Quote::class, $quote);
         }
 
-        $this->assertInstanceOf(Quote::class, $this->query()->findOneBy('id', 'quote'));
+        static::assertInstanceOf(Quote::class, $this->query()->findOneBy('id', 'quote'));
 
-        $this->assertInstanceOf(Quote::class, $this->query()->getById('quote'));
+        static::assertInstanceOf(Quote::class, $this->query()->getById('quote'));
     }
 }
