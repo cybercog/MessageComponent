@@ -55,7 +55,7 @@ See: https://github.com/SerafimArts/MessageComponent/issues/1
     $query = new Query($message);
   
     foreach ($query->find('img') as $img) {
-        $slackMessage['attachements']['image_url'] = $img->getUrl();
+        $slackMessage['attachements'][] = ['image_url' => $img->getUrl()];
     }
     ```
 
