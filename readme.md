@@ -16,13 +16,21 @@ Cross-platform message render component.
 
 ```php
 use Serafim\MessageComponent\Adapter\GitterAdapter;
+use Serafim\MessageComponent\Adapter\GitHubAdapter;
 use Serafim\MessageComponent\Manager;
 
 $manager = (new Manager())
+    ->addAdapter(GitHubAdapter::class)
     ->addAdapter(GitterAdapter::class);
 
-$out = $manager->render('gitter', '<user>SerafimArts</user> says `<i>{{ message }}!</i>`');
-// $out = '@SerafimArts says \`_hello_\`';
+
+$message = '<user>SerafimArts</user> says: <i>$$#1$$</i> `code`!';
+
+echo $manager->render('github', $message);
+// Result: '@SerafimArts says: _$$`#1`$$_ \`code\`!';
+
+echo $manager->render('gitter', $message);
+// Result: '@SerafimArts says: _`$$#1$$`_ \`code\`!';
 ```
 
 ## Available platforms
