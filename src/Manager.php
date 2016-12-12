@@ -23,29 +23,55 @@ class Manager implements ContainerInterface
     private $adapters = [];
 
     /**
-     * @param string $adapter
-     * @param array $options
-     * @return Manager|$this
+     * @var AdapterInterface|null
      */
-    public function addAdapter(string $adapter, array $options = []): Manager
+    private $current;
+
+    /**
+     * @param string[] ...$adapters
+     * @return Manager
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
+     */
+    public function addAdapter(string ...$adapters): Manager
     {
-        /** @var AdapterInterface $instance */
-        $instance = new $adapter($this, $options);
+        $lastAdapterName = null;
 
-        $this->adapters[$instance->getName()] = $instance;
+        foreach ($adapters as $adapter) {
+            /** @var AdapterInterface $instance */
+            $instance = new $adapter($this);
 
-        return $this;
+            $lastAdapterName = $name = $instance->getName();
+
+            $this->adapters[$name] = $instance;
+        }
+
+        return $this->on($lastAdapterName);
     }
 
     /**
-     * @param string $adapter
      * @param string $message
      * @return string
      * @throws AdapterNotFoundException
      */
-    public function render(string $adapter, string $message)
+    public function render(string $message)
     {
-        return $this->get($adapter)->render($message);
+        if ($this->current === null) {
+            throw new AdapterNotFoundException('Can not resolve adapter');
+        }
+
+        return $this->current->render($message);
+    }
+
+    /**
+     * @param string $adapterName
+     * @return Manager
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
+     */
+    public function on(string $adapterName): Manager
+    {
+        $this->current = $this->get($adapterName);
+
+        return $this;
     }
 
     /**

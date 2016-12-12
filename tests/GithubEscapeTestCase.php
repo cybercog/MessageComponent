@@ -25,9 +25,7 @@ class GithubEscapeTestCase extends AbstractRenderTests
      */
     public function render(string $text): string
     {
-        return (new Manager())
-            ->addAdapter(GitHubAdapter::class)
-            ->render('github', $text);
+        return (new Manager())->addAdapter(GitHubAdapter::class)->render($text);
     }
 
     /**

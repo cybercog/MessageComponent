@@ -18,9 +18,8 @@ interface AdapterInterface
     /**
      * AdapterInterface constructor.
      * @param Manager $manager
-     * @param array $options
      */
-    public function __construct(Manager $manager, array $options = []);
+    public function __construct(Manager $manager);
 
     /**
      * @param string $message

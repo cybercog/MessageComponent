@@ -25,9 +25,7 @@ class GitterEscapeTestCase extends AbstractRenderTests
      */
     public function render(string $text): string
     {
-        return (new Manager())
-            ->addAdapter(GitterAdapter::class)
-            ->render('gitter', $text);
+        return (new Manager())->addAdapter(GitterAdapter::class)->render($text);
     }
 
     /**

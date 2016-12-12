@@ -20,16 +20,15 @@ use Serafim\MessageComponent\Adapter\GitHubAdapter;
 use Serafim\MessageComponent\Manager;
 
 $manager = (new Manager())
-    ->addAdapter(GitHubAdapter::class)
-    ->addAdapter(GitterAdapter::class);
+    ->addAdapter(GitHubAdapter::class, GitterAdapter::class);
 
 
 $message = '<user>SerafimArts</user> says: <i>$$test$$</i> `code`!';
 
-echo $manager->render('github', $message);
+echo $manager->on('github')->render($message);
 // @SerafimArts says: _$$test$$_ \`code\`!
 
-echo $manager->render('gitter', $message);
+echo $manager->on('gitter')->render($message);
 // @SerafimArts says: _`$$test$$`_ \`code\`!
 ```
 

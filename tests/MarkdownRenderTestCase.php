@@ -7,33 +7,26 @@
  */
 namespace Serafim\MessageComponent\Unit;
 
-use Serafim\MessageComponent\Adapter\GitterAdapter;
+use Serafim\MessageComponent\Adapter\GitHubAdapter;
+use Serafim\MessageComponent\Adapter\MarkdownAdapter;
 use Serafim\MessageComponent\Manager;
 use Serafim\MessageComponent\Unit\Support\MarkdownRenderTestsTrait;
 
 /**
- * Class GitterAdapterTestCase
+ * Class MarkdownRenderTestCase
  * @package Serafim\MessageComponent\Unit
  */
-class GitterAdapterTestCase extends AbstractRenderTests
+class MarkdownRenderTestCase extends AbstractRenderTests
 {
     use MarkdownRenderTestsTrait;
 
     /**
      * @param string $text
      * @return string
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function render(string $text): string
     {
-        return (new Manager())->addAdapter(GitterAdapter::class)->render($text);
-    }
-
-    /**
-     * @return void
-     */
-    public function testUserRender()
-    {
-        $this->assertEquals('@UserLogin', $this->render('<user>UserLogin</user>'));
-        $this->assertEquals('@UserLogin', $this->render('<user login="UserLogin">Vasya Pupkin</user>'));
+        return (new Manager())->addAdapter(MarkdownAdapter::class)->render($text);
     }
 }

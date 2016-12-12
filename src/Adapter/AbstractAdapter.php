@@ -35,11 +35,10 @@ abstract class AbstractAdapter implements AdapterInterface
     /**
      * AbstractAdapter constructor.
      * @param Manager $manager
-     * @param array $options
      * @throws \Serafim\MessageComponent\Dom\Exception\TagRedefineException
      * @throws \LogicException
      */
-    public function __construct(Manager $manager, array $options = [])
+    public function __construct(Manager $manager)
     {
         $this->renderer = new Document();
 
