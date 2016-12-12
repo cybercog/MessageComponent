@@ -9,21 +9,18 @@ namespace Serafim\MessageComponent\Unit;
 
 use Serafim\MessageComponent\Adapter\GitterAdapter;
 use Serafim\MessageComponent\Manager;
-use Serafim\MessageComponent\Unit\Support\MarkdownEscapeTestsTrait;
 
 /**
  * Class GitterEscapeTestCase
  * @package Serafim\MessageComponent\Unit
  */
-class GitterEscapeTestCase extends AbstractRenderTests
+class GitterEscapeTestCase extends MarkdownEscapeTestCase
 {
-    use MarkdownEscapeTestsTrait;
-
     /**
      * @param string $text
      * @return string
      */
-    public function render(string $text): string
+    final public function render(string $text): string
     {
         return (new Manager())->addAdapter(GitterAdapter::class)->render($text);
     }

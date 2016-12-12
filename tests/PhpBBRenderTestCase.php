@@ -1,27 +1,36 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /**
  * This file is part of MessageComponent package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Unit\Support;
+namespace Serafim\MessageComponent\Unit;
 
-use Serafim\MessageComponent\Unit\AbstractRenderTests;
+use Serafim\MessageComponent\Adapter\PhpBBAdapter;
+use Serafim\MessageComponent\Manager;
 
 /**
- * Class MarkdownTestsTrait
- * @package Serafim\MessageComponent\Unit\Support
- * @mixin AbstractRenderTests
+ * Class PhpBBRenderTestCase
+ * @package Serafim\MessageComponent\Unit
  */
-trait MarkdownRenderTestsTrait
+class PhpBBRenderTestCase extends AbstractRenderTests
 {
+    /**
+     * @param string $body
+     * @return string
+     */
+    public function render(string $body): string
+    {
+        return (new Manager())->addAdapter(PhpBBAdapter::class)->render($body);
+    }
+
     /**
      * @return void
      */
     public function testItalicRender()
     {
-        $this->assertEquals('_italic_', $this->render('<i>italic</i>'));
+        $this->assertEquals('[i]italic[/i]', $this->render('<i>italic</i>'));
     }
 
     /**
@@ -29,7 +38,7 @@ trait MarkdownRenderTestsTrait
      */
     public function testBoldRender()
     {
-        $this->assertEquals('**bold**', $this->render('<b>bold</b>'));
+        $this->assertEquals('[b]bold[/b]', $this->render('<b>bold</b>'));
     }
 
     /**
@@ -37,7 +46,7 @@ trait MarkdownRenderTestsTrait
      */
     public function testStrokeRender()
     {
-        $this->assertEquals('~~stroke~~', $this->render('<s>stroke</s>'));
+        $this->assertEquals('[s]stroke[/s]', $this->render('<s>stroke</s>'));
     }
 
     /**
@@ -45,7 +54,7 @@ trait MarkdownRenderTestsTrait
      */
     public function testImageRender()
     {
-        $this->assertEquals('![UrlAndTitle](UrlAndTitle)', $this->render('<img>UrlAndTitle</img>'));
+        $this->assertEquals('[img]UrlAndTitle[/img]', $this->render('<img>UrlAndTitle</img>'));
     }
 
     /**
@@ -53,7 +62,7 @@ trait MarkdownRenderTestsTrait
      */
     public function testImageWithUrlRender()
     {
-        $this->assertEquals('![Title](http://site.ru)', $this->render('<img src="http://site.ru">Title</img>'));
+        $this->assertEquals('[img]http://site.ru[/img]', $this->render('<img src="http://site.ru">Title</img>'));
     }
 
     /**
@@ -61,7 +70,7 @@ trait MarkdownRenderTestsTrait
      */
     public function testImageWithTitleAndUrlRender()
     {
-        $this->assertEquals('![Title](http://site.ru)', $this->render('<img src="http://site.ru" title="Title" />'));
+        $this->assertEquals('[img]http://site.ru[/img]', $this->render('<img src="http://site.ru" title="Title" />'));
     }
 
     /**
@@ -69,7 +78,7 @@ trait MarkdownRenderTestsTrait
      */
     public function testLinkRender()
     {
-        $this->assertEquals('[UrlAndTitle](UrlAndTitle)', $this->render('<a>UrlAndTitle</a>'));
+        $this->assertEquals('[url=UrlAndTitle]UrlAndTitle[/url]', $this->render('<a>UrlAndTitle</a>'));
     }
 
     /**
@@ -77,7 +86,7 @@ trait MarkdownRenderTestsTrait
      */
     public function testLinkWithUrlRender()
     {
-        $this->assertEquals('[Title](http://site.ru)', $this->render('<a href="http://site.ru">Title</a>'));
+        $this->assertEquals('[url=http://site.ru]Title[/url]', $this->render('<a href="http://site.ru">Title</a>'));
     }
 
     /**
@@ -85,7 +94,8 @@ trait MarkdownRenderTestsTrait
      */
     public function testLinkWithTitleAndUrlRender()
     {
-        $this->assertEquals('[Title](http://site.ru)', $this->render('<a href="http://site.ru" title="Title" />'));
+        $this->assertEquals('[url=http://site.ru]Title[/url]',
+            $this->render('<a href="http://site.ru" title="Title" />'));
     }
 
     /**
@@ -93,7 +103,7 @@ trait MarkdownRenderTestsTrait
      */
     public function testHorizontalLineRender()
     {
-        $this->assertEquals("\n" . '---' . "\n", $this->render('<hr />'));
+        $this->assertEquals("\n\n", $this->render('<hr />'));
     }
 
     /**
@@ -101,12 +111,12 @@ trait MarkdownRenderTestsTrait
      */
     public function testHeadersRender()
     {
-        $this->assertEquals('# H1' . "\n", $this->render('<h1>H1</h1>'));
-        $this->assertEquals('## H2' . "\n", $this->render('<h2>H2</h2>'));
-        $this->assertEquals('### H3' . "\n", $this->render('<h3>H3</h3>'));
-        $this->assertEquals('#### H4' . "\n", $this->render('<h4>H4</h4>'));
-        $this->assertEquals('##### H5' . "\n", $this->render('<h5>H5</h5>'));
-        $this->assertEquals('###### H6' . "\n", $this->render('<h6>H6</h6>'));
+        $this->assertEquals('[size=170]H1[/size]', $this->render('<h1>H1</h1>'));
+        $this->assertEquals('[size=142]H2[/size]', $this->render('<h2>H2</h2>'));
+        $this->assertEquals('[size=114]H3[/size]', $this->render('<h3>H3</h3>'));
+        $this->assertEquals('[size=86]H4[/size]',  $this->render('<h4>H4</h4>'));
+        $this->assertEquals('[size=58]H5[/size]',  $this->render('<h5>H5</h5>'));
+        $this->assertEquals('[size=30]H6[/size]',  $this->render('<h6>H6</h6>'));
     }
 
     /**
@@ -115,8 +125,9 @@ trait MarkdownRenderTestsTrait
     public function testListRender()
     {
         $this->assertEquals(
-            "\n" .
-            '- list item' . "\n",
+            '[list]' . "\n" .
+            '  [*] list item' . "\n" .
+            '[/list]' . "\n",
             $this->render('<li>list item</li>')
         );
     }
@@ -127,8 +138,9 @@ trait MarkdownRenderTestsTrait
     public function testListWithMixedRender()
     {
         $this->assertEquals(
-            '_italic_' . "\n" .
-            '- list item' . "\n",
+            '[i]italic[/i][list]' . "\n" .
+            '  [*] list item' . "\n" .
+            '[/list]' . "\n",
             $this->render('<i>italic</i><li>list item</li>')
         );
     }
@@ -139,9 +151,10 @@ trait MarkdownRenderTestsTrait
     public function testSeveralItemsListRender()
     {
         $this->assertEquals(
-            "\n" .
-            '- list item' . "\n" .
-            '- list item' . "\n",
+            '[list]' . "\n" .
+            '  [*] list item' . "\n" .
+            '  [*] list item' . "\n" .
+            '[/list]' . "\n",
             $this->render('<li>list item</li><li>list item</li>')
         );
     }
@@ -152,9 +165,12 @@ trait MarkdownRenderTestsTrait
     public function testNestedListRender()
     {
         $this->assertEquals(
-            '_italic_' . "\n" .
-            '- list item' . "\n" .
-            '  - level2' . "\n\n",
+            '[i]italic[/i][list]' . "\n" .
+            '  [*] list item' . "\n" .
+            '  [list]' . "\n" .
+            '    [*] level2' . "\n" .
+            '  [/list]' . "\n" .
+            '[/list]' . "\n",
             $this->render('<i>italic</i><li>list item<li>level2</li></li>')
         );
     }
@@ -165,11 +181,13 @@ trait MarkdownRenderTestsTrait
     public function testNestedListWithMixedBodyRender()
     {
         $this->assertEquals(
-            '_italic_' . "\n" .
-            '- _asdasd_ list item' . "\n" .
-            '  - level2-1' . "\n" .
-            '  - level2-2' . "\n" .
-            "\n",
+            '[i]italic[/i][list]' . "\n" .
+            '  [*] [i]asdasd[/i] list item' . "\n" .
+            '  [list]' . "\n" .
+            '    [*] level2-1' . "\n" .
+            '    [*] level2-2' . "\n" .
+            '  [/list]' . "\n" .
+            '[/list]' . "\n",
             $this->render('<i>italic</i><li><i>asdasd</i> list item<li>level2-1</li><li>level2-2</li></li>')
         );
     }
@@ -179,7 +197,7 @@ trait MarkdownRenderTestsTrait
      */
     public function testInlineCodeRender()
     {
-        $this->assertEquals('`code`', $this->render('<code>code</code>'));
+        $this->assertEquals('[code]code[/code]', $this->render('<code>code</code>'));
     }
 
     /**
@@ -197,9 +215,9 @@ trait MarkdownRenderTestsTrait
     public function testMultilineCodeRender()
     {
         $this->assertEquals(
-            '```' . "\n" .
+            '[code]' . "\n" .
                 'code' . "\n" .
-            '```',
+            '[/code]',
             $this->render(
                 '<code>' . "\n" .
                     'code' . "\n" .
@@ -214,9 +232,7 @@ trait MarkdownRenderTestsTrait
     public function testMultilineFromSingleLineAndLanguageCodeRender()
     {
         $this->assertEquals(
-            '```php' . "\n" .
-                'code' . "\n" .
-            '```',
+            '[code=php]code[/code]',
             $this->render('<code lang="php">code</code>')
         );
     }
@@ -227,9 +243,9 @@ trait MarkdownRenderTestsTrait
     public function testMultilineWithLanguageCodeRender()
     {
         $this->assertEquals(
-            '```php' . "\n" .
+            '[code=php]' . "\n" .
                 'code' . "\n" .
-            '```',
+            '[/code]',
             $this->render(
                 '<code lang="php">' . "\n" .
                     'code' . "\n" .
@@ -244,10 +260,10 @@ trait MarkdownRenderTestsTrait
     public function testCodeRenderInsulation()
     {
         $this->assertEquals(
-            '```' . "\n" .
+            '[code]' . "\n" .
                 '<b>This text will not be rendered as bold</b>' . "\n" .
                 '<i>This text will not be rendered as italic or <s>stroke or <b>bold</b></s></i>' . "\n" .
-            '```',
+            '[/code]',
 
             $this->render(
                 '<code>' . "\n" .
@@ -264,13 +280,8 @@ trait MarkdownRenderTestsTrait
     public function testMixedStylesRender()
     {
         $this->assertEquals(
-            '_italic **bold** ~~stroke~~_**bold**',
+            '[i]italic [b]bold[/b] [s]stroke[/s][/i][b]bold[/b]',
             $this->render('<i>italic <b>bold</b> <s>stroke</s></i><b>bold</b>')
-        );
-
-        $this->assertEquals(
-            '_italic\_ **bold** ~~\*\*stroke~~_**\`bold**',
-            $this->render('<i>italic_ <b>bold</b> <s>**stroke</s></i><b>`bold</b>')
         );
     }
 
@@ -280,12 +291,12 @@ trait MarkdownRenderTestsTrait
     public function testQuoteRender()
     {
         $this->assertEquals(
-            '> Blockquote _italic_' . "\n\n" . 'message after',
+            '[quote]Blockquote [i]italic[/i][/quote]message after',
             $this->render('<quote>Blockquote <i>italic</i></quote>message after')
         );
 
         $this->assertEquals(
-            '> Blockquote' . "\n\n" . 'message after',
+            '[quote]Blockquote[/quote]message after',
             $this->render('<quote>Blockquote</quote>message after')
         );
     }

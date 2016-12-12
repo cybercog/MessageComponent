@@ -9,21 +9,18 @@ namespace Serafim\MessageComponent\Unit;
 
 use Serafim\MessageComponent\Adapter\GitHubAdapter;
 use Serafim\MessageComponent\Manager;
-use Serafim\MessageComponent\Unit\Support\MarkdownRenderTestsTrait;
 
 /**
  * Class GithubRenderTestCase
  * @package Serafim\MessageComponent\Unit
  */
-class GithubRenderTestCase extends AbstractRenderTests
+class GithubRenderTestCase extends MarkdownRenderTestCase
 {
-    use MarkdownRenderTestsTrait;
-
     /**
      * @param string $text
      * @return string
      */
-    public function render(string $text): string
+    final public function render(string $text): string
     {
         return (new Manager())->addAdapter(GitHubAdapter::class)->render($text);
     }

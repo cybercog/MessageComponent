@@ -42,4 +42,16 @@ class ListItem extends DomElement
             $this->name === $this->dom->previousSibling->tagName
         );
     }
+
+    /**
+     * @return bool
+     */
+    public function isLastItem(): bool
+    {
+        return !(
+            $this->dom->nextSibling &&
+            $this->dom->nextSibling instanceof \DOMElement &&
+            $this->name === $this->dom->nextSibling->tagName
+        );
+    }
 }

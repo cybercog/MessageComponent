@@ -9,21 +9,18 @@ namespace Serafim\MessageComponent\Unit;
 
 use Serafim\MessageComponent\Adapter\GitHubAdapter;
 use Serafim\MessageComponent\Manager;
-use Serafim\MessageComponent\Unit\Support\MarkdownEscapeTestsTrait;
 
 /**
  * Class GithubEscapeTestCase
  * @package Serafim\MessageComponent\Unit
  */
-class GithubEscapeTestCase extends AbstractRenderTests
+class GithubEscapeTestCase extends MarkdownEscapeTestCase
 {
-    use MarkdownEscapeTestsTrait;
-
     /**
      * @param string $text
      * @return string
      */
-    public function render(string $text): string
+    final public function render(string $text): string
     {
         return (new Manager())->addAdapter(GitHubAdapter::class)->render($text);
     }
