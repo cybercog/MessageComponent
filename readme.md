@@ -17,19 +17,23 @@ Cross-platform message render component.
 ```php
 use Serafim\MessageComponent\Adapter\PhpBBAdapter;
 use Serafim\MessageComponent\Adapter\GitHubAdapter;
+use Serafim\MessageComponent\Adapter\SlackAdapter;
 use Serafim\MessageComponent\Manager;
 
 $manager = (new Manager())
-    ->addAdapter(GitHubAdapter::class, PhpBBAdapter::class);
+    ->addAdapter(GitHubAdapter::class, PhpBBAdapter::class, SlackAdapter::class);
 
 
-$message = '<user>SerafimArts</user> says: <i>$$test$$</i> `code`!';
+$message = '<user uid="Id42">SerafimArts</user> says: <i>$$test$$</i> `code`!';
 
 echo $manager->on('github')->render($message);
 // @SerafimArts says: _$$test$$_ \`code\`!
 
 echo $manager->on('phpbb')->render($message);
 // [b]SerafimArts[/b] says: [i]$$test$$[/i] `code`!
+
+echo $manager->on('slack')->render($message);
+// <@Id42|SerafimArts> says: _$$test$$_ \`code\`!
 ```
 
 ## Available platforms
