@@ -5,21 +5,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Render\Markdown;
+namespace Serafim\MessageComponent\Render\Text;
 
-use Serafim\MessageComponent\Render as Tag;
+use Serafim\MessageComponent\Dom\Node\TextElement;
 
 /**
- * Class HorizontalLine
- * @package Serafim\MessageComponent\Render\Markdown
+ * Class HtmlEntitiesDecoder
+ * @package Serafim\MessageComponent\Render\Text
  */
-class HorizontalLine extends Tag\HorizontalLine
+class HtmlEntitiesDecoder extends TextElement
 {
     /**
      * @return string
      */
     public function render(): string
     {
-        return "\n---\n";
+        return htmlspecialchars_decode($this->text);
     }
 }

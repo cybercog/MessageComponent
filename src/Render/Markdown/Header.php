@@ -7,21 +7,19 @@
  */
 namespace Serafim\MessageComponent\Render\Markdown;
 
-use Serafim\MessageComponent\Dom\Node\DomElement;
+use Serafim\MessageComponent\Render as Tag;
 
 /**
  * Class Header
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class Header extends DomElement
+class Header extends Tag\Header
 {
     /**
      * @return string
      */
     public function render(): string
     {
-        $level = substr($this->name, 1);
-
-        return str_repeat('#', (int)$level) . ' ' . $this->text . "\n";
+        return str_repeat('#',  $this->getLevel()) . ' ' . $this->text . "\n";
     }
 }

@@ -7,56 +7,22 @@
  */
 namespace Serafim\MessageComponent\Render\Markdown;
 
-
-use Serafim\MessageComponent\Dom\Node\DomElement;
+use Serafim\MessageComponent\Render as Tag;
 
 /**
  * Class ListItem
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class ListItem extends DomElement
+class ListItem extends Tag\ListItem
 {
     /**
      * @return string
      */
     public function render(): string
     {
-        $isContinuation = $this->isContinuationOfList();
-        $nestingLevel   = $this->getNestedLevel();
-
-        $prefix  = $isContinuation ? '' : "\n";
-        $prefix .= str_repeat('  ', $nestingLevel);
+        $prefix  = $this->isFirstItem() ? "\n" : '';
+        $prefix .= str_repeat('  ', $this->getNestingLevel());
 
         return $prefix . '- ' . $this->text . "\n";
-    }
-
-    /**
-     * @return int
-     */
-    private function getNestedLevel(): int
-    {
-        $level = 0;
-        $current = $this->dom;
-
-        while ($current->parentNode && $current->parentNode->tagName === $this->name) {
-            $level++;
-            $current = $current->parentNode;
-        }
-
-        return $level;
-    }
-
-    /**
-     * 1) Has previous tag
-     * 2) Previous tag is not looks like current
-     *
-     * @return bool
-     */
-    private function isContinuationOfList()
-    {
-        return
-            $this->dom->previousSibling &&
-            $this->dom->previousSibling instanceof \DOMElement &&
-            $this->name === $this->dom->previousSibling->tagName;
     }
 }

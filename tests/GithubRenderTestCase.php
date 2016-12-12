@@ -7,15 +7,15 @@
  */
 namespace Serafim\MessageComponent\Unit;
 
-use Serafim\MessageComponent\Adapter\GitterAdapter;
+use Serafim\MessageComponent\Adapter\GitHubAdapter;
 use Serafim\MessageComponent\Manager;
 use Serafim\MessageComponent\Unit\Support\MarkdownRenderTestsTrait;
 
 /**
- * Class GitterAdapterTestCase
+ * Class GithubRenderTestCase
  * @package Serafim\MessageComponent\Unit
  */
-class GitterAdapterTestCase extends AbstractRenderTests
+class GithubRenderTestCase extends AbstractRenderTests
 {
     use MarkdownRenderTestsTrait;
 
@@ -26,8 +26,8 @@ class GitterAdapterTestCase extends AbstractRenderTests
     public function render(string $text): string
     {
         return (new Manager())
-            ->addAdapter(GitterAdapter::class)
-            ->render('gitter', $text);
+            ->addAdapter(GitHubAdapter::class)
+            ->render('github', $text);
     }
 
     /**

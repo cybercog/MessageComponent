@@ -5,17 +5,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Parser;
+namespace Serafim\MessageComponent\Unit;
 
 /**
- * Interface NodeParserInterface
- * @package Serafim\MessageComponent\Parser
+ * Class AbstractRenderTests
+ * @package Serafim\MessageComponent\Unit
  */
-interface NodeParserInterface
+abstract class AbstractRenderTests extends AbstractTests
 {
     /**
-     * @param \DOMElement|\DOMText $dom
+     * @param string $body
      * @return string
      */
-    public function parse($dom): string;
+    abstract public function render(string $body): string;
 }

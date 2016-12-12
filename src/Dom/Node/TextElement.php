@@ -12,6 +12,8 @@ use Serafim\MessageComponent\Dom\Document;
 /**
  * Class TextElement
  * @package Serafim\MessageComponent\Dom\Node
+ *
+ * @property-read string $text
  */
 class TextElement extends Element implements TextNodeInterface
 {
@@ -30,6 +32,28 @@ class TextElement extends Element implements TextNodeInterface
      */
     public function render(): string
     {
-        return htmlspecialchars_decode($this->dom->textContent);
+        return $this->dom->textContent;
+    }
+
+    /**
+     * @return string
+     */
+    protected function innerText(): string
+    {
+        return $this->dom->textContent;
+    }
+
+    /**
+     * @param string $property
+     * @return string
+     */
+    public function __get(string $property)
+    {
+        switch ($property) {
+            case 'text':
+                return $this->innerText();
+        }
+
+        return null;
     }
 }

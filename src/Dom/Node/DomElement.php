@@ -85,6 +85,20 @@ class DomElement extends Element implements DomNodeInterface
     }
 
     /**
+     * @param string $name
+     * @param string|null $default
+     * @return string|null
+     */
+    protected function attr(string $name, string $default = null)
+    {
+        if ($this->dom->hasAttribute($name)) {
+            return $this->dom->getAttribute($name);
+        }
+
+        return $default;
+    }
+
+    /**
      * @param NodeInterface $node
      */
     public function append(NodeInterface $node)

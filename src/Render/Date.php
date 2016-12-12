@@ -5,7 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Render\Common;
+namespace Serafim\MessageComponent\Render;
 
 use Carbon\Carbon;
 use Serafim\MessageComponent\Dom\Exception\InvalidTagAttributeException;
@@ -13,7 +13,7 @@ use Serafim\MessageComponent\Dom\Node\DomElement;
 
 /**
  * Class Date
- * @package Serafim\MessageComponent\Render\Common
+ * @package Serafim\MessageComponent\Render
  */
 class Date extends DomElement
 {
@@ -21,6 +21,11 @@ class Date extends DomElement
      * @var string
      */
     const DEFAULT_FORMAT = 'date-time';
+
+    /**
+     * @var string
+     */
+    protected $timezone = 'UTC';
 
     /**
      * @var array
@@ -50,22 +55,21 @@ class Date extends DomElement
      */
     public function render(): string
     {
-        $format = $this->getFormat();
-        return $this->getDate()->{$format}();
+        return $this->format($this->getDate(), $this->getFormat());
     }
 
     /**
      * @return \DateTimeZone
      */
-    private function getTimeZone(): \DateTimeZone
+    public function getTimeZone(): \DateTimeZone
     {
-        return new \DateTimeZone('UTC');
+        return new \DateTimeZone($this->timezone);
     }
 
     /**
      * @return Carbon
      */
-    private function getDate(): Carbon
+    public function getDate(): Carbon
     {
         try {
             return Carbon::parse($this->html, $this->getTimeZone());
@@ -89,9 +93,30 @@ class Date extends DomElement
                 throw new InvalidTagAttributeException($message);
             }
 
-            return $this->formats[$format];
+            return $format;
         }
 
-        return $this->formats[static::DEFAULT_FORMAT];
+        return static::DEFAULT_FORMAT;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFormats(): array
+    {
+        return array_keys($this->formats);
+    }
+
+    /**
+     * @param Carbon $date
+     * @param string $format
+     * @return string
+     */
+    public function format(Carbon $date, string $format): string
+    {
+        $format = array_key_exists($format, $this->formats) ? $format : static::DEFAULT_FORMAT;
+        $method = $this->formats[$format];
+
+        return $date->{$method}();
     }
 }

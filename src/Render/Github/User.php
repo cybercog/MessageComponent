@@ -5,21 +5,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Render\Markdown;
+namespace Serafim\MessageComponent\Render\Github;
 
 use Serafim\MessageComponent\Render as Tag;
 
 /**
- * Class HorizontalLine
- * @package Serafim\MessageComponent\Render\Markdown
+ * Class User
+ * @package Serafim\MessageComponent\Render\Github
  */
-class HorizontalLine extends Tag\HorizontalLine
+class User extends Tag\User
 {
     /**
      * @return string
      */
     public function render(): string
     {
-        return "\n---\n";
+        return '@' . $this->getLogin();
     }
 }

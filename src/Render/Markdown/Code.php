@@ -7,23 +7,21 @@
  */
 namespace Serafim\MessageComponent\Render\Markdown;
 
-use Serafim\MessageComponent\Dom\Node\DomElement;
+use Serafim\MessageComponent\Render as Tag;
 
 /**
  * Class Code
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class Code extends DomElement
+class Code extends Tag\Code
 {
     /**
      * @return string
      */
     public function render(): string
     {
-        $lang = $this->getLanguage();
-
-        if ('' !== $lang || false !== strpos($this->html, "\n")) {
-            return $this->multiline($lang);
+        if ($this->hasLanguage() || $this->isMultiline()) {
+            return $this->multiline($this->getLanguage());
         }
 
         return '`' . $this->html . '`';
@@ -39,17 +37,5 @@ class Code extends DomElement
             '```' . $language . "\n" .
                 trim($this->html, "\n") . "\n" .
             '```';
-    }
-
-    /**
-     * @return string
-     */
-    private function getLanguage(): string
-    {
-        if ($this->dom->hasAttribute('lang')) {
-            return $this->dom->getAttribute('lang');
-        }
-
-        return '';
     }
 }

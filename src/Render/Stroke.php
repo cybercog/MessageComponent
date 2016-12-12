@@ -5,15 +5,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Serafim\MessageComponent\Unit;
+namespace Serafim\MessageComponent\Render;
 
-use \PHPUnit_Framework_TestCase as UnitTestCase;
+use Serafim\MessageComponent\Dom\Node\DomElement;
 
 /**
- * Class UnitTest
- * @package Serafim\MessageComponent\Unit
+ * Class Stroke
+ * @package Serafim\MessageComponent\Render
  */
-abstract class UnitTest extends UnitTestCase
+class Stroke extends DomElement
 {
 
 }

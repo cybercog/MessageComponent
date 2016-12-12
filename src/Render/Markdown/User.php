@@ -7,19 +7,19 @@
  */
 namespace Serafim\MessageComponent\Render\Markdown;
 
-use Serafim\MessageComponent\Dom\Node\DomElement;
+use Serafim\MessageComponent\Render as Tag;
 
 /**
  * Class User
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class User extends DomElement
+class User extends Tag\User
 {
     /**
      * @return string
      */
     public function render(): string
     {
-        return '@' . $this->text;
+        return '_@' . $this->getLogin() . '_';
     }
 }

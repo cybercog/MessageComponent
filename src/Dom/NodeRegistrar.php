@@ -47,7 +47,7 @@ class NodeRegistrar
 
     /**
      * @param string[] ...$tags
-     * @return $this
+     * @return $this|NodeRegistrar
      * @throws TagRedefineException
      */
     public function as(string ...$tags)
@@ -65,12 +65,14 @@ class NodeRegistrar
     }
 
     /**
-     * @param string $tag
+     * @param string[] ...$tags
      * @return NodeRegistrar
      */
-    public function instead(string $tag): NodeRegistrar
+    public function instead(string ...$tags): NodeRegistrar
     {
-        $this->domNodes[strtolower($tag)] = $this->node;
+        foreach ($tags as $tag) {
+            $this->domNodes[strtolower($tag)] = $this->node;
+        }
 
         return $this;
     }

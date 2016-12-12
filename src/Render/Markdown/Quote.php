@@ -7,13 +7,13 @@
  */
 namespace Serafim\MessageComponent\Render\Markdown;
 
-use Serafim\MessageComponent\Dom\Node\DomElement;
+use Serafim\MessageComponent\Render as Tag;
 
 /**
  * Class Quote
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class Quote extends DomElement
+class Quote extends Tag\Quote
 {
     /**
      * @return string

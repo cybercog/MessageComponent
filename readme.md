@@ -15,11 +15,11 @@ Cross-platform message render component.
 ## Example:
 
 ```php
-use Serafim\MessageComponent\Adapter\GitterMarkdown;
+use Serafim\MessageComponent\Adapter\GitterAdapter;
 use Serafim\MessageComponent\Manager;
 
 $manager = (new Manager())
-    ->addAdapter(GitterMarkdown::class);
+    ->addAdapter(GitterAdapter::class);
 
 $out = $manager->render('gitter', '<user>SerafimArts</user> says `<i>{{ message }}!</i>`');
 // $out = '@SerafimArts says \`_hello_\`';
@@ -29,7 +29,8 @@ $out = $manager->render('gitter', '<user>SerafimArts</user> says `<i>{{ message 
 
 See: https://github.com/SerafimArts/MessageComponent/issues/1
 
-- Gitter: `Serafim\MessageComponent\Adapter\GitterMarkdown::class`
+- Gitter: `Serafim\MessageComponent\Adapter\GitterAdapter::class`
+- GitHub: `Serafim\MessageComponent\Adapter\GitHubAdapter::class`
 
 ## Available tags
 
@@ -46,6 +47,8 @@ See: https://github.com/SerafimArts/MessageComponent/issues/2
 - `<quote>Quoted text</quote>` - User quote
 - `<h1>Header 1</h1>` - Header 1 (can be h1...h6)
 - `<user>Name</user>` - Username
+    - Attribute `login` (optional): User login
+    - Attribute `identify` (optional): User ID
 - `<hr />` - Horizontal delimiter line
 - `<li>List item</li>` - Just a list item
 - `<img>Image url and|or title</img>` - Image

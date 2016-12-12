@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 /**
  * This file is part of MessageComponent package.
  *
@@ -10,16 +10,10 @@ namespace Serafim\MessageComponent\Render\Markdown;
 use Serafim\MessageComponent\Render as Tag;
 
 /**
- * Class HorizontalLine
- * @package Serafim\MessageComponent\Render\Markdown
+ * Class Date
+ * @package Serafim\MessageComponent\Render
  */
-class HorizontalLine extends Tag\HorizontalLine
+class Date extends Tag\Date
 {
-    /**
-     * @return string
-     */
-    public function render(): string
-    {
-        return "\n---\n";
-    }
+
 }

@@ -7,13 +7,13 @@
  */
 namespace Serafim\MessageComponent\Render\Markdown;
 
-use Serafim\MessageComponent\Dom\Node\DomElement;
+use Serafim\MessageComponent\Render as Tag;
 
 /**
  * Class Italic
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class Italic extends DomElement
+class Italic extends Tag\Italic
 {
     /**
      * @return string

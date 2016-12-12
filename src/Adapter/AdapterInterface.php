@@ -29,12 +29,6 @@ interface AdapterInterface
     public function render(string $message): string;
 
     /**
-     * @param string $message
-     * @return string
-     */
-    public function parse(string $message): string;
-
-    /**
      * @return string
      */
     public function getName(): string;

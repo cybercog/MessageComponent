@@ -7,13 +7,13 @@
  */
 namespace Serafim\MessageComponent\Render\Markdown;
 
-use Serafim\MessageComponent\Dom\Node\DomElement;
+use Serafim\MessageComponent\Render as Tag;
 
 /**
  * Class Bold
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class Bold extends DomElement
+class Bold extends Tag\Bold
 {
     /**
      * @return string

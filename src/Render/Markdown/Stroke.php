@@ -7,13 +7,13 @@
  */
 namespace Serafim\MessageComponent\Render\Markdown;
 
-use Serafim\MessageComponent\Dom\Node\DomElement;
+use Serafim\MessageComponent\Render as Tag;
 
 /**
  * Class Stroke
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class Stroke extends DomElement
+class Stroke extends Tag\Stroke
 {
     /**
      * @return string

@@ -7,43 +7,19 @@
  */
 namespace Serafim\MessageComponent\Render\Markdown;
 
-use Serafim\MessageComponent\Dom\Node\DomElement;
+use Serafim\MessageComponent\Render as Tag;
 
 /**
  * Class Image
  * @package Serafim\MessageComponent\Render\Markdown
  */
-class Image extends DomElement
+class Image extends Tag\Image
 {
     /**
      * @return string
      */
     public function render(): string
     {
-        list($title, $url) = [$this->prepareTitle(), $this->prepareUrl()];
-
-        return sprintf('![%s](%s)', $title, $url);
-    }
-
-    /**
-     * @return string
-     */
-    private function prepareTitle(): string
-    {
-        if ($this->dom->hasAttribute('title')) {
-            return $this->dom->getAttribute('title');
-        }
-
-        return $this->html;
-    }
-
-    /**
-     * @return string
-     */
-    private function prepareUrl() : string
-    {
-        return $this->dom->hasAttribute('src')
-            ? $this->dom->getAttribute('src')
-            : $this->html;
+        return sprintf('![%s](%s)', $this->getTitle(), $this->getUrl());
     }
 }

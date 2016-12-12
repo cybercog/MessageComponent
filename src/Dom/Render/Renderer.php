@@ -10,6 +10,7 @@ namespace Serafim\MessageComponent\Dom\Render;
 use Serafim\MessageComponent\Dom\Document;
 use Serafim\MessageComponent\Dom\Node\DomNodeInterface;
 use Serafim\MessageComponent\Dom\Node\TextElement;
+use Serafim\MessageComponent\Dom\XmlParser;
 
 /**
  * Class Renderer
@@ -23,14 +24,9 @@ class Renderer
     private $document;
 
     /**
-     * @var array
+     * @var XmlParser
      */
-    private $validParsedXml = ['<?xml', '<!doctype'];
-
-    /**
-     * @var string
-     */
-    private $charset = 'utf-8';
+    private $parser;
 
     /**
      * Renderer constructor.
@@ -39,6 +35,7 @@ class Renderer
     public function __construct(Document $document)
     {
         $this->document = $document;
+        $this->parser = new XmlParser();
     }
 
     /**
@@ -47,7 +44,16 @@ class Renderer
      */
     public function render(string $body): string
     {
-        return $this->make($this->createXml($body))->render();
+        return $this->parseDom($body)->render();
+    }
+
+    /**
+     * @param string $body
+     * @return DomNodeInterface
+     */
+    public function parseDom(string $body): DomNodeInterface
+    {
+        return $this->make($this->parser->create($body));
     }
 
     /**
@@ -76,42 +82,8 @@ class Renderer
      */
     private function findElementRenderer(\DOMElement $element): DomNodeInterface
     {
-        $class = $this->document->findTag($element->tagName);
+        $class = $this->document->findRegisteredTag($element->tagName);
 
         return new $class($this->document, $element);
-    }
-
-    /**
-     * @param string $body
-     * @return \DOMElement
-     */
-    private function createXml(string $body): \DOMElement
-    {
-        $document = new \DOMDocument('1.0', $this->charset);
-
-        if ($this->isCanBeParsedAsXml($body)) {
-            $document->loadXML($body);
-
-            return $document->documentElement;
-        }
-
-        $document->loadXML('<root>' . $body . '</root>');
-
-        return $document->childNodes->item(0);
-    }
-
-    /**
-     * @param string $body
-     * @return bool
-     */
-    private function isCanBeParsedAsXml(string $body): bool
-    {
-        foreach ((array)$this->validParsedXml as $needle) {
-            if (0 === strpos($body, (string)$needle)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
