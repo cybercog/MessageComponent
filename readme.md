@@ -24,13 +24,13 @@ $manager = (new Manager())
     ->addAdapter(GitterAdapter::class);
 
 
-$message = '<user>SerafimArts</user> says: <i>$$#1$$</i> `code`!';
+$message = '<user>SerafimArts</user> says: <i>$$test$$</i> `code`!';
 
 echo $manager->render('github', $message);
-// Result: '@SerafimArts says: _$$`#1`$$_ \`code\`!';
+// @SerafimArts says: _$$test$$_ \`code\`!
 
 echo $manager->render('gitter', $message);
-// Result: '@SerafimArts says: _`$$#1$$`_ \`code\`!';
+// @SerafimArts says: _`$$test$$`_ \`code\`!
 ```
 
 ## Available platforms
