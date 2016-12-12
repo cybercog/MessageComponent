@@ -51,6 +51,20 @@ class GitterEscapeTestCase extends AbstractRenderTests
     /**
      * @return void
      */
+    public function testEscapeIssueLink()
+    {
+        // Positive
+        $this->assertEquals('`#1`', $this->render('#1'));
+        $this->assertEquals('\``#1`\`', $this->render('`#1`'));
+        $this->assertEquals('\# 1', $this->render('# 1'));
+
+        // Negative
+        $this->assertEquals('#test', $this->render('#test'));
+    }
+
+    /**
+     * @return void
+     */
     public function testEscapeLatex()
     {
         $this->assertEquals('`$$test$$`', $this->render('$$test$$'));

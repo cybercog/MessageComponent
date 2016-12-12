@@ -25,6 +25,7 @@ class EscapeAdvancedSyntax extends TextElement
         $body = $this->escapeSlashCommands($body);
         $body = $this->escapeLatexCode($body);
         $body = $this->escapeUser($body);
+        $body = $this->escapeIssues($body);
 
         return $body;
     }
@@ -60,5 +61,16 @@ class EscapeAdvancedSyntax extends TextElement
     protected function escapeSlashCommands(string $body): string
     {
         return preg_replace('/^\/(\w+)/iu', '`/$1`', $body);
+    }
+
+    /**
+     * Escape issue link like a "#ID"
+     *
+     * @param string $body
+     * @return string
+     */
+    protected function escapeIssues(string $body): string
+    {
+        return preg_replace('/#(\d+)/iu', '`#$1`', $body);
     }
 }
