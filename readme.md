@@ -47,7 +47,10 @@ See: https://github.com/SerafimArts/MessageComponent/issues/1
   
     // See https://api.slack.com/docs/message-attachments
     $slackMessage = ['text' => $manager->on('slack')->render($message), 'attachments' => []];
-    foreach ((new Query($message))->find('img') as $img) {
+  
+    $query = new Query($message);
+  
+    foreach ($query->find('img') as $img) {
         $slackMessage['attachements']['image_url'] = $img->getUrl();
     }
     ```
