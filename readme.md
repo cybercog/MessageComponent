@@ -15,7 +15,7 @@ Cross-platform message render component.
 ## Example:
 
 ```php
-use Serafim\MessageComponent\Adapter\GitterAdapter;
+use Serafim\MessageComponent\Adapter\PhpBBAdapter;
 use Serafim\MessageComponent\Adapter\GitHubAdapter;
 use Serafim\MessageComponent\Manager;
 
