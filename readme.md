@@ -40,6 +40,17 @@ See: https://github.com/SerafimArts/MessageComponent/issues/1
 - GitHub: `Serafim\MessageComponent\Adapter\GitHubAdapter::class`
 - Markdown (generic): `Serafim\MessageComponent\Adapter\MarkdownAdapter::class`
 - BBCode (PhpBB engine): `Serafim\MessageComponent\Adapter\PhpBBAdapter::class`
+- Slack: `Serafim\MessageComponent\Adapter\SlackAdapter::class`
+    - Images does not supports by platform and must be attached:
+    ```php
+    use Serafim\MessageComponent\Query;
+  
+    // See https://api.slack.com/docs/message-attachments
+    $slackMessage = ['text' => $manager->on('slack')->render($message), 'attachments' => []];
+    foreach ((new Query($message))->find('img') as $img) {
+        $slackMessage['attachements']['image_url'] = $img->getUrl();
+    }
+    ```
 
 ## Available tags
 
