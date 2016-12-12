@@ -20,7 +20,7 @@ use Serafim\MessageComponent\Adapter\GitHubAdapter;
 use Serafim\MessageComponent\Manager;
 
 $manager = (new Manager())
-    ->addAdapter(GitHubAdapter::class, GitterAdapter::class);
+    ->addAdapter(GitHubAdapter::class, PhpBBAdapter::class);
 
 
 $message = '<user>SerafimArts</user> says: <i>$$test$$</i> `code`!';
@@ -28,8 +28,8 @@ $message = '<user>SerafimArts</user> says: <i>$$test$$</i> `code`!';
 echo $manager->on('github')->render($message);
 // @SerafimArts says: _$$test$$_ \`code\`!
 
-echo $manager->on('gitter')->render($message);
-// @SerafimArts says: _`$$test$$`_ \`code\`!
+echo $manager->on('phpbb')->render($message);
+// [b]SerafimArts[/b] says: [i]$$test$$[/i] `code`!
 ```
 
 ## Available platforms
@@ -38,6 +38,8 @@ See: https://github.com/SerafimArts/MessageComponent/issues/1
 
 - Gitter: `Serafim\MessageComponent\Adapter\GitterAdapter::class`
 - GitHub: `Serafim\MessageComponent\Adapter\GitHubAdapter::class`
+- Markdown (generic): `Serafim\MessageComponent\Adapter\MarkdownAdapter::class`
+- BBCode (PhpBB engine): `Serafim\MessageComponent\Adapter\PhpBBAdapter::class`
 
 ## Available tags
 
