@@ -12,7 +12,7 @@ Cross-platform message render component.
 - Installation: `composer require serafim/message-component`
 - Requirements: `php >= 7.0` or `hhvm >= 3.11`
 
-## Example:
+## Renders example:
 
 ```php
 use Serafim\MessageComponent\Adapter\PhpBBAdapter;
@@ -36,7 +36,7 @@ echo $manager->on('slack')->render($message);
 // <@Id42|SerafimArts> says: _$$test$$_ \`code\`!
 ```
 
-## Available platforms
+## Platforms
 
 See: https://github.com/SerafimArts/MessageComponent/issues/1
 
@@ -59,7 +59,7 @@ See: https://github.com/SerafimArts/MessageComponent/issues/1
     }
     ```
 
-## Available tags
+## Tags
 
 See: https://github.com/SerafimArts/MessageComponent/issues/2
 
