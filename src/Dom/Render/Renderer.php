@@ -40,15 +40,6 @@ class Renderer
 
     /**
      * @param string $body
-     * @return string
-     */
-    public function render(string $body): string
-    {
-        return $this->parseDom($body)->render();
-    }
-
-    /**
-     * @param string $body
      * @return DomNodeInterface
      */
     public function parseDom(string $body): DomNodeInterface

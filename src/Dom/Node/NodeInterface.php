@@ -16,16 +16,6 @@ use Serafim\MessageComponent\Dom\Document;
 interface NodeInterface
 {
     /**
-     * @return Document
-     */
-    public function getDocument(): Document;
-
-    /**
-     * @return \DOMText|\DOMElement
-     */
-    public function getDomElement();
-
-    /**
      * @return string
      */
     public function render(): string;

@@ -118,14 +118,6 @@ class Document
     }
 
     /**
-     * @return array
-     */
-    public function getDomElements(): array
-    {
-        return $this->domNodes;
-    }
-
-    /**
      * @param string $name
      * @return string
      */

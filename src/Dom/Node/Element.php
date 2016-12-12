@@ -37,22 +37,6 @@ abstract class Element implements NodeInterface
     }
 
     /**
-     * @return Document
-     */
-    public function getDocument(): Document
-    {
-        return $this->document;
-    }
-
-    /**
-     * @return \DOMElement|\DOMText
-     */
-    public function getDomElement()
-    {
-        return $this->dom;
-    }
-
-    /**
      * @return string
      */
     abstract public function render(): string;
