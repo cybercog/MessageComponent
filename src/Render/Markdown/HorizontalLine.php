@@ -20,6 +20,20 @@ class HorizontalLine extends Tag\HorizontalLine
      */
     public function render(): string
     {
-        return "\n---\n";
+        $prefix = $this->endsWithNl() ? '' : "\n";
+        return $prefix . "\n---\n";
+    }
+
+    /**
+     * @return bool
+     */
+    private function endsWithNl(): bool
+    {
+        $prev = '';
+        if ($this->dom->previousSibling) {
+            $prev = $this->dom->previousSibling->textContent;
+        }
+
+        return $prev !== '' && $prev[strlen($prev) - 1] === "\n";
     }
 }

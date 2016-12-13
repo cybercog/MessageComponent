@@ -133,18 +133,26 @@ class MarkdownRenderTestCase extends AbstractRenderTests
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testHorizontalLineRender()
     {
         static::assertEquals(
-            "\n" . '---' . "\n",
+            "\n\n" . '---' . "\n",
             $this->render('<hr />'),
             'Horizontal delimiter generic markdown render'
+        );
+
+        static::assertEquals(
+            "\n\n" . '---' . "\n",
+            $this->render("\n" . '<hr />'),
+            'Horizontal delimiter generic markdown render with skipping eol'
         );
     }
 
     /**
      * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function testHeadersRender()
     {
