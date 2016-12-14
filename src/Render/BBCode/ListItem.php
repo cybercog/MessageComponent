@@ -22,6 +22,20 @@ class ListItem extends Tag\ListItem
     {
         $space  = str_repeat('  ', $this->getNestingLevel());
 
+        $prefix = $this->getPrefix($space);
+        $suffix = $this->getSuffix($space);
+
+        return $prefix .
+            $space . '  [*] ' . $this->text . "\n" .
+        $suffix;
+    }
+
+    /**
+     * @param string $space
+     * @return string
+     */
+    private function getPrefix(string $space): string
+    {
         $prefix = '';
         if ($this->isFirstItem()) {
             $prefix = $space . '[list]' . "\n";
@@ -31,6 +45,15 @@ class ListItem extends Tag\ListItem
             }
         }
 
+        return $prefix;
+    }
+
+    /**
+     * @param string $space
+     * @return string
+     */
+    private function getSuffix(string $space): string
+    {
         $suffix = '';
         if ($this->isLastItem()) {
             $suffix = $space . '[/list]';
@@ -40,8 +63,6 @@ class ListItem extends Tag\ListItem
             }
         }
 
-        return $prefix .
-            $space . '  [*] ' . $this->text . "\n" .
-        $suffix;
+        return $suffix;
     }
 }
