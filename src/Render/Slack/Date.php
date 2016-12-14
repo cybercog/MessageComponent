@@ -29,6 +29,7 @@ class Date extends Tag\Date
 
     /**
      * @return string
+     * @throws \Serafim\MessageComponent\Dom\Exception\InvalidTagAttributeException
      */
     protected function getSlackFormat(): string
     {
@@ -42,9 +43,6 @@ class Date extends Tag\Date
             case 'date-time':
                 return '{date_num} {time_secs}';
             case 'day-date-time':
-                // TODO
-                // Required:  Tue, Feb 18, 2014 9:45 PM
-                // Slack:     Tuesday, February 18th, 2014 9:45 PM
                 return '{date_long} {time}';
         }
 
