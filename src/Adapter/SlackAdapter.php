@@ -46,12 +46,4 @@ class SlackAdapter extends AbstractAdapter
         Markdown\HorizontalLine::class => 'hr',
         Markdown\ListItem::class       => 'li',
     ];
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'slack';
-    }
 }

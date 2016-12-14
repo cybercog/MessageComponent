@@ -23,7 +23,7 @@ class GitterEscapeTestCase extends MarkdownEscapeTestCase
      */
     final public function render(string $text): string
     {
-        return (new Manager())->addAdapter(GitterAdapter::class)->render($text);
+        return (new Manager())->on(GitterAdapter::class)->render($text);
     }
 
     /**

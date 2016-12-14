@@ -23,7 +23,7 @@ class GithubEscapeTestCase extends MarkdownEscapeTestCase
      */
     final public function render(string $text): string
     {
-        return (new Manager())->addAdapter(GitHubAdapter::class)->render($text);
+        return (new Manager())->on(GitHubAdapter::class)->render($text);
     }
 
     /**

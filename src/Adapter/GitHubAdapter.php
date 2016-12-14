@@ -46,12 +46,4 @@ class GitHubAdapter extends AbstractAdapter
         Markdown\ListItem::class       => 'li',
         Markdown\Image::class          => 'img',
     ];
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'github';
-    }
 }

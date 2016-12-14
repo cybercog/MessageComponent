@@ -23,7 +23,7 @@ class MarkdownEscapeTestCase extends AbstractRenderTests
      */
     public function render(string $text): string
     {
-        return (new Manager())->addAdapter(MarkdownAdapter::class)->render($text);
+        return (new Manager())->on(MarkdownAdapter::class)->render($text);
     }
 
     /**

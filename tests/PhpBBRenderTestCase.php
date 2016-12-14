@@ -23,7 +23,7 @@ class PhpBBRenderTestCase extends AbstractRenderTests
      */
     public function render(string $body): string
     {
-        return (new Manager())->addAdapter(PhpBBAdapter::class)->render($body);
+        return (new Manager())->on(PhpBBAdapter::class)->render($body);
     }
 
     /**

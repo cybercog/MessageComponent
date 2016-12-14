@@ -41,12 +41,4 @@ class MarkdownAdapter extends AbstractAdapter
         Markdown\Image::class          => 'img',
         Markdown\User::class           => 'user',
     ];
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'markdown';
-    }
 }

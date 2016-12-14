@@ -26,9 +26,4 @@ interface AdapterInterface
      * @return string
      */
     public function render(string $message): string;
-
-    /**
-     * @return string
-     */
-    public function getName(): string;
 }

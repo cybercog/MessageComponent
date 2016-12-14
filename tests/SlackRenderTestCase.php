@@ -23,7 +23,7 @@ class SlackRenderTestCase extends MarkdownRenderTestCase
      */
     final public function render(string $text): string
     {
-        return (new Manager())->addAdapter(SlackAdapter::class)->render($text);
+        return (new Manager())->on(SlackAdapter::class)->render($text);
     }
 
     /**

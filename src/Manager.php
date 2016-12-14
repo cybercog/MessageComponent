@@ -28,30 +28,23 @@ class Manager implements ContainerInterface
     private $current;
 
     /**
-     * @param string[] ...$adapters
+     * @param string $adapter
      * @return Manager
-     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
-    public function addAdapter(string ...$adapters): Manager
+    public function create(string $adapter): Manager
     {
-        $lastAdapterName = null;
+        /** @var AdapterInterface $instance */
+        $instance = new $adapter($this);
 
-        foreach ($adapters as $adapter) {
-            /** @var AdapterInterface $instance */
-            $instance = new $adapter($this);
+        $this->adapters[$adapter] = $instance;
 
-            $lastAdapterName = $name = $instance->getName();
-
-            $this->adapters[$name] = $instance;
-        }
-
-        return $this->on($lastAdapterName);
+        return $this->on($adapter);
     }
 
     /**
      * @param string $message
      * @return string
-     * @throws AdapterNotFoundException
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function render(string $message)
     {
@@ -63,13 +56,12 @@ class Manager implements ContainerInterface
     }
 
     /**
-     * @param string $adapterName
+     * @param string $adapter
      * @return Manager
-     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
-    public function on(string $adapterName): Manager
+    public function on(string $adapter): Manager
     {
-        $this->current = $this->get($adapterName);
+        $this->current = $this->get($adapter);
 
         return $this;
     }
@@ -77,15 +69,14 @@ class Manager implements ContainerInterface
     /**
      * @param string $adapter
      * @return AdapterInterface|null
-     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
     public function get(string $adapter)
     {
-        if ($this->has($adapter)) {
-            return $this->adapters[$adapter];
+        if (!$this->has($adapter)) {
+            $this->create($adapter);
         }
 
-        throw new AdapterNotFoundException('Unavailable adapter ' . $adapter);
+        return $this->adapters[$adapter];
     }
 
     /**

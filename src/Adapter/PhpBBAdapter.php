@@ -41,12 +41,4 @@ class PhpBBAdapter extends AbstractAdapter
         BBCode\ListItem::class       => 'li',
         BBCode\Image::class          => 'img',
     ];
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'phpbb';
-    }
 }
