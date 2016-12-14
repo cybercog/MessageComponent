@@ -27,6 +27,15 @@ class SlackRenderTestCase extends MarkdownRenderTestCase
     }
 
     /**
+     * @retrun void
+     */
+    public function testBoldRender()
+    {
+        static::assertEquals('*bold*', $this->render('<b>bold</b>'), 'Bold slack markdown render');
+    }
+
+
+    /**
      * @return void
      */
     public function testUserRender()
@@ -80,6 +89,41 @@ class SlackRenderTestCase extends MarkdownRenderTestCase
             '`code`',
             $this->render('<code lang="php">code</code>')
         );
+
+        static::assertEquals(
+            'Message `code`',
+            $this->render('Message<code lang="php">code</code>')
+        );
+
+        static::assertEquals(
+            '*Message* `code`',
+            $this->render('<b>Message</b><code lang="php">code</code>')
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testMixedStylesRender()
+    {
+        static::assertEquals(
+            '_italic *bold* ~stroke~_*bold*',
+            $this->render('<i>italic <b>bold</b> <s>stroke</s></i><b>bold</b>')
+        );
+
+        static::assertEquals(
+            '_italic\_ *bold* ~\*\*stroke~_*\`bold*',
+            $this->render('<i>italic_ <b>bold</b> <s>**stroke</s></i><b>`bold</b>')
+        );
+    }
+
+    /**
+     * @return void
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
+     */
+    public function testStrokeRender()
+    {
+        static::assertEquals('~stroke~', $this->render('<s>stroke</s>'), 'Strike slack markdown render');
     }
 
     /**
@@ -107,7 +151,7 @@ class SlackRenderTestCase extends MarkdownRenderTestCase
     {
         static::assertEquals(
             'http://site.ru/img.jpg',
-            $this->render('<img>http://site.ru/img.jpg</img>'),
+                $this->render('<img>http://site.ru/img.jpg</img>'),
             'Slack image render'
         );
     }
@@ -120,7 +164,7 @@ class SlackRenderTestCase extends MarkdownRenderTestCase
     {
         static::assertEquals(
             'http://site.ru/img.jpg',
-            $this->render('<img src="http://site.ru/img.jpg">Title</img>'),
+                $this->render('<img src="http://site.ru/img.jpg">Title</img>'),
             'Slack image with url render'
         );
     }
@@ -133,7 +177,7 @@ class SlackRenderTestCase extends MarkdownRenderTestCase
     {
         static::assertEquals(
             'http://site.ru/img.jpg',
-            $this->render('<img src="http://site.ru/img.jpg" title="Title" />'),
+                $this->render('<img src="http://site.ru/img.jpg" title="Title" />'),
             'Slack image with url and link render'
         );
     }

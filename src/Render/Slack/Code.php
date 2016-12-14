@@ -17,10 +17,27 @@ class Code extends Tag\Code
 {
     public function render(): string
     {
+
         if ($this->isMultiline()) {
-            return '```' . "\n" . trim($this->html) . "\n" . '```';
+            $prefix = $this->prefixRequired() ? "\n" : '';
+            return $prefix . '```' . "\n" . trim($this->html) . "\n" . '```';
         }
 
-        return '`' . $this->html . '`';
+        $prefix = $this->prefixRequired() ? ' ' : '';
+        return $prefix . '`' . $this->html . '`';
+    }
+
+    /**
+     * @return bool
+     */
+    private function prefixRequired()
+    {
+        if (!$this->dom->previousSibling) {
+            return false;
+        }
+
+        $text = $this->dom->previousSibling->textContent;
+
+        return rtrim($text) === $text;
     }
 }

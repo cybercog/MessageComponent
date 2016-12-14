@@ -7,9 +7,9 @@
  */
 namespace Serafim\MessageComponent\Adapter;
 
-use Serafim\MessageComponent\Render\Text;
 use Serafim\MessageComponent\Render\Markdown;
 use Serafim\MessageComponent\Render\Slack;
+use Serafim\MessageComponent\Render\Text;
 
 /**
  * Class SlackAdapter
@@ -37,10 +37,10 @@ class SlackAdapter extends AbstractAdapter
         Slack\Date::class              => 'date',
         Slack\Code::class              => 'code',
         Slack\Image::class             => 'img',
+        Slack\Bold::class              => 'b',
+        Slack\Stroke::class            => 's',
         // Common markdown
         Markdown\Italic::class         => 'i',
-        Markdown\Bold::class           => 'b',
-        Markdown\Stroke::class         => 's',
         Markdown\Quote::class          => 'quote',
         Markdown\Header::class         => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
         Markdown\HorizontalLine::class => 'hr',
