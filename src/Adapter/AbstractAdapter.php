@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 /**
  * This file is part of MessageComponent package.
  *
@@ -7,8 +7,9 @@
  */
 namespace Serafim\MessageComponent\Adapter;
 
-use Serafim\MessageComponent\Manager;
 use Serafim\MessageComponent\Dom\Document;
+use Serafim\MessageComponent\Dom\Parser;
+use Serafim\MessageComponent\Manager;
 use Serafim\MessageComponent\Render as Tag;
 
 /**
@@ -18,19 +19,25 @@ use Serafim\MessageComponent\Render as Tag;
 abstract class AbstractAdapter implements AdapterInterface
 {
     /**
-     * @var Document
-     */
-    private $renderer;
-
-    /**
      * @var array
      */
     protected $nodeRenderers = [];
-
     /**
      * @var array
      */
     protected $textRenderers = [];
+    /**
+     * @var array
+     */
+    protected $tokenParsers = [];
+    /**
+     * @var Document
+     */
+    private $renderer;
+    /**
+     * @var Parser
+     */
+    private $parser;
 
     /**
      * AbstractAdapter constructor.
@@ -41,9 +48,21 @@ abstract class AbstractAdapter implements AdapterInterface
     public function __construct(Manager $manager)
     {
         $this->renderer = new Document();
+        $this->parser = new Parser();
 
         $this->registerTextRenderers();
         $this->registerNodeRenderers();
+        $this->registerTokenParsers();
+    }
+
+    /**
+     * @return void
+     */
+    private function registerTextRenderers()
+    {
+        foreach ($this->textRenderers as $class) {
+            $this->renderer->text($class);
+        }
     }
 
     /**
@@ -60,10 +79,15 @@ abstract class AbstractAdapter implements AdapterInterface
     /**
      * @return void
      */
-    private function registerTextRenderers()
+    private function registerTokenParsers()
     {
-        foreach ($this->textRenderers as $class) {
-            $this->renderer->text($class);
+        foreach ($this->tokenParsers as $key => $token) {
+            if (is_int($key)) {
+                $this->parser->addToken(new $token);
+            } else {
+                $this->parser->addToken(new $key(...$token));
+            }
+
         }
     }
 
@@ -74,5 +98,14 @@ abstract class AbstractAdapter implements AdapterInterface
     public function render(string $message): string
     {
         return $this->renderer->render($message);
+    }
+
+    /**
+     * @param string $message
+     * @return string
+     */
+    public function parse(string $message): string
+    {
+        return $this->parser->parse($message);
     }
 }

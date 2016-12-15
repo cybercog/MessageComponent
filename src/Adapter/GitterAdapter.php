@@ -7,9 +7,11 @@
  */
 namespace Serafim\MessageComponent\Adapter;
 
+use Serafim\MessageComponent\Parser\Gitter as GitterParser;
+use Serafim\MessageComponent\Parser\Markdown as MdParser;
+use Serafim\MessageComponent\Render\Gitter as GitterRender;
+use Serafim\MessageComponent\Render\Markdown as MdRender;
 use Serafim\MessageComponent\Render\Text;
-use Serafim\MessageComponent\Render\Gitter;
-use Serafim\MessageComponent\Render\Markdown;
 
 /**
  * Class GitterAdapter
@@ -25,7 +27,7 @@ class GitterAdapter extends AbstractAdapter
         Text\BasicMarkdownEscape::class,
         Text\HtmlEntitiesDecoder::class,
         // Custom
-        Gitter\EscapeAdvancedSyntax::class,
+        GitterRender\EscapeAdvancedSyntax::class,
     ];
 
     /**
@@ -33,17 +35,35 @@ class GitterAdapter extends AbstractAdapter
      */
     protected $nodeRenderers = [
         // Custom tags
-        Gitter\User::class             => 'user',
+        GitterRender\User::class       => 'user',
         // Common markdown
-        Markdown\Italic::class         => 'i',
-        Markdown\Bold::class           => 'b',
-        Markdown\Stroke::class         => 's',
-        Markdown\Link::class           => 'a',
-        Markdown\Code::class           => 'code',
-        Markdown\Quote::class          => 'quote',
-        Markdown\Header::class         => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-        Markdown\HorizontalLine::class => 'hr',
-        Markdown\ListItem::class       => 'li',
-        Markdown\Image::class          => 'img',
+        MdRender\Italic::class         => 'i',
+        MdRender\Bold::class           => 'b',
+        MdRender\Stroke::class         => 's',
+        MdRender\Link::class           => 'a',
+        MdRender\Code::class           => 'code',
+        MdRender\Quote::class          => 'quote',
+        MdRender\Header::class         => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        MdRender\HorizontalLine::class => 'hr',
+        MdRender\ListItem::class       => 'li',
+        MdRender\Image::class          => 'img',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $tokenParsers = [
+        MdParser\Bold::class,
+        MdParser\Italic::class,
+        MdParser\Stroke::class,
+        MdParser\Image::class,
+        MdParser\Link::class,
+        MdParser\Quote::class,
+        MdParser\Code::class,
+        MdParser\Header::class,
+        MdParser\TitleHeader::class,
+        MdParser\HorizontalLine::class,
+        MdParser\ListItem::class,
+        GitterParser\User::class,
     ];
 }

@@ -46,13 +46,27 @@ class Manager implements ContainerInterface
      * @return string
      * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
      */
-    public function render(string $message)
+    public function render(string $message): string
     {
         if ($this->current === null) {
             throw new AdapterNotFoundException('Can not resolve adapter');
         }
 
         return $this->current->render($message);
+    }
+
+    /**
+     * @param string $message
+     * @return string
+     * @throws \Serafim\MessageComponent\DI\AdapterNotFoundException
+     */
+    public function parse(string $message)
+    {
+        if ($this->current === null) {
+            throw new AdapterNotFoundException('Can not resolve adapter');
+        }
+
+        return $this->current->parse($message);
     }
 
     /**

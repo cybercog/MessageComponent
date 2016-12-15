@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 /**
  * This file is part of MessageComponent package.
  *
@@ -58,7 +58,7 @@ class BasicMarkdownEscape extends TextElement
 
         $regex = sprintf('/(?P<%s>(?:%s)+)/iu', $namedPattern, implode('|', $chars));
 
-        return preg_replace_callback($regex, function($matches) use ($namedPattern) {
+        return preg_replace_callback($regex, function ($matches) use ($namedPattern) {
             $char = current(str_split($matches[$namedPattern]));
 
             return str_replace($char, '\\' . $char, $matches[0]);

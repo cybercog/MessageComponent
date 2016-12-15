@@ -20,7 +20,7 @@ class Link extends DomElement
      */
     public function getTitle(): string
     {
-        return $this->attr('title', $this->html);
+        return $this->attr('title', $this->text);
     }
 
     /**
