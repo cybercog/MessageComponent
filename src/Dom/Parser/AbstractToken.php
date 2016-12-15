@@ -38,17 +38,25 @@ abstract class AbstractToken implements TokenInterface
     private function stringifyAttributes(array $attributes = []): string
     {
         if (count($attributes)) {
-            $attributesData = [];
-            foreach ($attributes as $key => $value) {
-                if ($value) {
-                    $attributesData[] = $key . '="' . htmlspecialchars($value) . '"';
-                }
-            }
-
-            return (count($attributesData) ? ' ' : '') .
-                implode(' ', $attributesData);
+            $attr = $this->attributesToArray($attributes);
+            return (count($attr) ? ' ' : '') . implode(' ', $attr);
         }
 
         return '';
+    }
+
+    /**
+     * @param array $attributes
+     * @return array
+     */
+    private function attributesToArray(array $attributes = []): array
+    {
+        $attributesData = [];
+        foreach ($attributes as $key => $value) {
+            if ($value) {
+                $attributesData[] = $key . '="' . htmlspecialchars($value) . '"';
+            }
+        }
+        return $attributesData;
     }
 }
