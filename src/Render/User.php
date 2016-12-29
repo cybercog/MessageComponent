@@ -24,6 +24,17 @@ class User extends DomElement
     }
 
     /**
+     * @param string $userName
+     * @return User|$this
+     */
+    public function setVisibleName(string $userName): User
+    {
+        $this->dom->textContent = $userName;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getLogin(): string
@@ -32,10 +43,28 @@ class User extends DomElement
     }
 
     /**
+     * @param string $login
+     * @return User|$this
+     */
+    public function setLogin(string $login): User
+    {
+        return $this->setAttribute('login', $login);
+    }
+
+    /**
      * @return string
      */
     public function getIdentify(): string
     {
         return $this->attr('uid', $this->getLogin());
+    }
+
+    /**
+     * @param string $id
+     * @return User|$this
+     */
+    public function setIdentify(string $id): User
+    {
+        return $this->setAttribute('uid', $id);
     }
 }

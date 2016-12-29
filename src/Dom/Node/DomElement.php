@@ -68,6 +68,18 @@ class DomElement extends Element implements DomNodeInterface
     }
 
     /**
+     * @param string $name
+     * @param string $value
+     * @return \DOMElement|$this
+     */
+    public function setAttribute(string $name, string $value): \DOMElement
+    {
+        $this->dom->setAttribute($name, $value);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     private function innerHtml(): string

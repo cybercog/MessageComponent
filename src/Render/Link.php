@@ -24,10 +24,28 @@ class Link extends DomElement
     }
 
     /**
+     * @param string $title
+     * @return Link|$this
+     */
+    public function setTitle(string $title): Link
+    {
+        return $this->setAttribute('title', $title);
+    }
+
+    /**
      * @return string
      */
     public function getUrl() : string
     {
         return $this->attr('href', $this->html);
+    }
+
+    /**
+     * @param string $url
+     * @return Link|$this
+     */
+    public function setUrl(string $url) : Link
+    {
+        return $this->setAttribute('href', $url);
     }
 }
