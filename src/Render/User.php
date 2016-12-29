@@ -48,7 +48,9 @@ class User extends DomElement
      */
     public function setLogin(string $login): User
     {
-        return $this->setAttribute('login', $login);
+        $this->setAttribute('login', $login);
+
+        return $this;
     }
 
     /**
@@ -65,6 +67,8 @@ class User extends DomElement
      */
     public function setIdentify(string $id): User
     {
-        return $this->setAttribute('uid', $id);
+        $this->setAttribute('uid', $id);
+
+        return $this;
     }
 }

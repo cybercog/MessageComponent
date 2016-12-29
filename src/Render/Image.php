@@ -24,10 +24,32 @@ class Image extends DomElement
     }
 
     /**
+     * @param string $title
+     * @return Image|$this
+     */
+    public function setTitle(string $title): Image
+    {
+        $this->setAttribute('title', $title);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getUrl() : string
     {
         return $this->attr('src', $this->html);
+    }
+
+    /**
+     * @param string $url
+     * @return Image|$this
+     */
+    public function setUrl(string $url) : Image
+    {
+        $this->setAttribute('src', $url);
+
+        return $this;
     }
 }

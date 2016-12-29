@@ -29,7 +29,9 @@ class Link extends DomElement
      */
     public function setTitle(string $title): Link
     {
-        return $this->setAttribute('title', $title);
+        $this->setAttribute('title', $title);
+
+        return $this;
     }
 
     /**
@@ -46,6 +48,8 @@ class Link extends DomElement
      */
     public function setUrl(string $url) : Link
     {
-        return $this->setAttribute('href', $url);
+        $this->setAttribute('href', $url);
+
+        return $this;
     }
 }
